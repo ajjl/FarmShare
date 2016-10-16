@@ -1,54 +1,54 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  TextInput
 } from 'react-native';
+import styles from './styles.js';
+import Button from 'react-native-button';
 
 class AwesomeProject extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: ''
+    }
+  }
+
+  _handlePress() {
+    console.log("log in pressed")
+  }
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React Native!
-          HELLO!!!!!!!!!
+          Insert Farm Share Logo Here*
         </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
+        <TextInput
+          style={styles.login}
+          placeholder="email"
+          onChangeText={(text) => this.setState({email: text})}
+          value={this.state.email}
+        />
+        <TextInput
+          style={styles.login}
+          placeholder="password"
+          onChangeText={(text) => this.setState({password: text})}
+          value={this.state.password}
+          secureTextEntry={true}
+        />
+        <Button
+          style={styles.button}
+          onPress={() => this._handlePress()}>
+          Sign In
+      </Button>
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
 
 AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);

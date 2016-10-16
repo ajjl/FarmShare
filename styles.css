@@ -1,0 +1,28 @@
+container {
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  background-color: #F5FCFF;
+}
+
+welcome {
+  font-size: 20;
+  text-align: center;
+  margin: 10;
+}
+
+login {
+  margin: 5 20 5 20;
+  padding: 5;
+  height: 40;
+  border-color: gray;
+  border-width: 1
+}
+
+button {
+  width: 100;
+  border: 1 solid #ccc;
+  border-radius: 5px;
+  font-size: 20;
+  color: #A5ACAF;
+}
