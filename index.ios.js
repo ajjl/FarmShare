@@ -18,10 +18,13 @@ class AwesomeProject extends Component {
       password: ''
     }
   }
-
+_handlePressAlex(){
+  AlertIOS.alert("You pressed Alex button")
+}
   _handlePress() {
     console.log("log in pressed")
-    return fetch('https://farmshare-api.herokuapp.com/login?email=xuezhma@gmail.com&password=123456')
+    const email = this.state.email
+    return fetch(`https://farmshare-api.herokuapp.com/login?email=${email}&password=123456`)
       .then((response) => response.json())
       .then((responseJson) => {
         AlertIOS.alert(JSON.stringify(responseJson))
@@ -54,6 +57,12 @@ class AwesomeProject extends Component {
           onPress={() => this._handlePress()}>
           Sign In
       </Button>
+      <Button
+        style = {styles.button}
+      //  onPress={() => this._handlePressAlex()}>
+        onPress={() => {AlertIOS.alert("Alex anonymous function")}}>
+        AlexButton
+        </Button>
       </View>
     );
   }

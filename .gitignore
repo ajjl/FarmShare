@@ -2,3 +2,4 @@
 node_modules
 ios/build/*
 styles.js
+*.*swp
