@@ -21,10 +21,10 @@ class AwesomeProject extends Component {
 
   _handlePress() {
     console.log("log in pressed")
-    return fetch('https://facebook.github.io/react-native/movies.json')
+    return fetch('https://farmshare-api.herokuapp.com/login?email=xuezhma@gmail.com&password=123456')
       .then((response) => response.json())
       .then((responseJson) => {
-        AlertIOS.alert(JSON.stringify(responseJson.movies))
+        AlertIOS.alert(JSON.stringify(responseJson))
       })
       .catch((error) => {
         console.error(error);
@@ -42,13 +42,13 @@ class AwesomeProject extends Component {
           onChangeText={(text) => this.setState({email: text})}
           value={this.state.email}
         />
-        <TextInput
+        {/*<TextInput
           style={styles.login}
           placeholder="password"
           onChangeText={(text) => this.setState({password: text})}
           value={this.state.password}
           secureTextEntry={true}
-        />
+        />*/}
         <Button
           style={styles.button}
           onPress={() => this._handlePress()}>
