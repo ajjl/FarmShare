@@ -4,7 +4,8 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput
+  TextInput,
+  AlertIOS
 } from 'react-native';
 import styles from './styles.js';
 import Button from 'react-native-button';
@@ -20,6 +21,14 @@ class AwesomeProject extends Component {
 
   _handlePress() {
     console.log("log in pressed")
+    return fetch('https://facebook.github.io/react-native/movies.json')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        AlertIOS.alert(JSON.stringify(responseJson.movies))
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
   render() {
     return (
