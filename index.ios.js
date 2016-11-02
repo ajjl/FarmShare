@@ -1,3 +1,4 @@
+'use strict'
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -5,68 +6,43 @@ import {
   Text,
   View,
   TextInput,
-  AlertIOS
+  AlertIOS,
+  NavigatorIOS
 } from 'react-native';
-import styles from './styles.js';
+
+//import styles from './styles.js';
 import Button from 'react-native-button';
+var ReactNative = require('react-native')
+
+var LoginPage = require('./LoginPage')
+
+
+
+var styles = ReactNative.StyleSheet.create({
+  text: {
+    color: 'black',
+    backgroundColor: 'steelblue',
+    fontSize: 30,
+    margin: 80
+  },
+  container: {
+    flex: 1
+  }
+});
+
 
 class AwesomeProject extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: ''
-    }
-  }
-_handlePressAlex(){
-  AlertIOS.alert("You pressed Alex button")
-}
-  _handlePress() {
-    console.log("log in pressed")
-    const email = this.state.email
-    return fetch(`https://farmshare-api.herokuapp.com/login?email=${email}&password=123456`)
-      .then((response) => response.json())
-      .then((responseJson) => {
-        AlertIOS.alert(JSON.stringify(responseJson))
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Insert Farm Share Logo Here*
-        </Text>
-        <TextInput
-          style={styles.login}
-          placeholder="email"
-          onChangeText={(text) => this.setState({email: text})}
-          value={this.state.email}
-        />
-        {/*<TextInput
-          style={styles.login}
-          placeholder="password"
-          onChangeText={(text) => this.setState({password: text})}
-          value={this.state.password}
-          secureTextEntry={true}
-        />*/}
-        <Button
-          style={styles.button}
-          onPress={() => this._handlePress()}>
-          Sign In
-      </Button>
-      <Button
-        style = {styles.button}
-      //  onPress={() => this._handlePressAlex()}>
-        onPress={() => {AlertIOS.alert("Alex anonymous function")}}>
-        AlexButton
-        </Button>
-      </View>
-    );
+      <NavigatorIOS
+        style={styles.container}
+        initialRoute={{
+          title: 'FarmShare Login',
+          component: LoginPage,
+        }}
+      />
+    )
   }
 }
-
 
 AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);
