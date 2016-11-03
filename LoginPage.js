@@ -13,6 +13,7 @@ import {
 import Button from 'react-native-button'
 
 import styles from './styles.js';
+import HomePage from './HomePage.js'
 
 class LoginPage extends Component {
   constructor(props) {
@@ -28,6 +29,12 @@ _handlePressAlex(){
   _handlePress() {
     console.log("log in pressed")
     const email = this.state.email
+        this.props.navigator.push({
+          title: 'HomePage',
+          component: HomePage,
+          passProps: {name: email},
+        })
+        /*
     return fetch(`https://farmshare-api.herokuapp.com/login?email=${email}&password=123456`)
       .then((response) => response.json())
       .then((responseJson) => {
@@ -35,7 +42,8 @@ _handlePressAlex(){
       })
       .catch((error) => {
         console.error(error);
-      });
+      });*/
+
   }
   render() {
     return (
@@ -53,12 +61,6 @@ _handlePressAlex(){
           style={styles.button}
           onPress={() => this._handlePress()}>
           Sign In
-      </Button>
-      <Button
-        style = {styles.button}
-      //  onPress={() => this._handlePressAlex()}>
-        onPress={() => {AlertIOS.alert("Alex anonymous function")}}>
-        AlexButton
         </Button>
       </View>
     );
