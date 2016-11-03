@@ -30,8 +30,12 @@ _handlePressAlex(){
     console.log("log in pressed")
     const email = this.state.email
     const password = this.state.password
-    return fetch('http://localhost:3000/login', {
+    return fetch('https://farmshare-api.herokuapp.com/login', {
     	method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
     	body: JSON.stringify({
         email: email,
         password: password
@@ -41,13 +45,18 @@ _handlePressAlex(){
         return response.json()
       })
       .then((responseJson) => {
-        console.log("responseJson: ", responseJson)
+        // console.log("responseJson: ", responseJson)
+        if (responseJson && Object.keys(responseJson).length) {
+          this.props.navigator.push({
+            title: 'HomePage',
+            component: HomePage,
+            passProps: {name: responseJson.fullname},
+          })
+        } else {
+          AlertIOS.alert("Not Found")
+        }
         // AlertIOS.alert(JSON.stringify(responseJson))
-        this.props.navigator.push({
-          title: 'HomePage',
-          component: HomePage,
-          passProps: {name: responseJson.fullname},
-        })
+
       })
       .catch((error) => {
         console.error(error);
@@ -67,7 +76,7 @@ _handlePressAlex(){
           value={this.state.email}
         />
         <TextInput
-          type="password"
+          secureTextEntry={true}
           style={styles.login}
           placeholder="password"
           onChangeText={(text) => this.setState({password: text})}
