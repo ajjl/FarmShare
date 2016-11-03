@@ -14,7 +14,8 @@ import {
 import Button from 'react-native-button';
 var ReactNative = require('react-native')
 
-var LoginPage = require('./LoginPage')
+var LoginPage = require('./LoginPage.js')
+var HomePage = require('./HomePage.js')
 
 
 
@@ -38,7 +39,7 @@ class AwesomeProject extends Component {
         style={styles.container}
         initialRoute={{
           title: 'FarmShare Login',
-          component: LoginPage,
+          component: LoginPage, 
         }}
       />
     )
