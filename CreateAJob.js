@@ -9,20 +9,22 @@ import {
   View,
   TextInput,
   AlertIOS,
-  NavigatorIOS
+  TouchableHighlight
 } from 'react-native';
 
-import styles from './styles.js'
+import styles from './styles.js';
 
-class JobListPageRequester extends Component {
+
+class CreateAJob extends Component {
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}> JobListRequester Page </Text>
+        <Text style={styles.welcome}> This is where we will create new jobs</Text>
       </View>
     )
   }
+
 }
 
-module.exports = JobListPageRequester;
+module.exports = CreateAJob;

@@ -37,6 +37,7 @@ var myStyles = StyleSheet.create({
 import ProfilePage from './ProfilePage.js'
 import Button from 'react-native-button'
 import JobListPageRequester from './JobListPageRequester.js'
+import  CreateAJob from './CreateAJob'
 
 class HomePage extends Component {
   constructor(props) {
@@ -61,6 +62,13 @@ class HomePage extends Component {
     })
   }
 
+  _onGoToCreateAJobPressed() {
+    this.props.navigator.push({
+      title: 'CreateRequest a new Job',
+      component: CreateAJob
+    })
+  }
+
   render(){
     return (
       <View style={styles.container}>
@@ -69,7 +77,10 @@ class HomePage extends Component {
             <Text> Go To ProfilePage </Text>
           </Button>
           <Button style={styles.button} onPress={this._onGoToJobListingsPressed.bind(this)}>
-            <Text> Go To JobsListPage(Requester)</Text>
+            <Text> See your Job Listings </Text>
+          </Button>
+          <Button style={styles.button} onPress={this._onGoToCreateAJobPressed.bind(this)}>
+            <Text> Create a a New Job </Text>
           </Button>
       </View>
     )
