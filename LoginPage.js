@@ -29,20 +29,29 @@ _handlePressAlex(){
   _handlePress() {
     console.log("log in pressed")
     const email = this.state.email
+    const password = this.state.password
+    return fetch('http://localhost:3000/login', {
+    	method: 'POST',
+    	body: JSON.stringify({
+        email: email,
+        password: password
+    	})
+    })
+      .then((response) => {
+        return response.json()
+      })
+      .then((responseJson) => {
+        console.log("responseJson: ", responseJson)
+        // AlertIOS.alert(JSON.stringify(responseJson))
         this.props.navigator.push({
           title: 'HomePage',
           component: HomePage,
-          passProps: {name: email},
+          passProps: {name: responseJson.fullname},
         })
-        /*
-    return fetch(`https://farmshare-api.herokuapp.com/login?email=${email}&password=123456`)
-      .then((response) => response.json())
-      .then((responseJson) => {
-        AlertIOS.alert(JSON.stringify(responseJson))
       })
       .catch((error) => {
         console.error(error);
-      });*/
+      });
 
   }
   render() {
@@ -56,6 +65,13 @@ _handlePressAlex(){
           placeholder="email"
           onChangeText={(text) => this.setState({email: text})}
           value={this.state.email}
+        />
+        <TextInput
+          type="password"
+          style={styles.login}
+          placeholder="password"
+          onChangeText={(text) => this.setState({password: text})}
+          value={this.state.password}
         />
         <Button
           style={styles.button}
