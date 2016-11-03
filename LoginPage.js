@@ -26,11 +26,11 @@ class LoginPage extends Component {
 _handlePressAlex(){
   AlertIOS.alert("You pressed Alex button")
 }
-  _handlePress() {
+  _makeRequest(type) {
     console.log("log in pressed")
-    const email = this.state.email
+    const email = this.state.email.toLowerCase() // <-- this should be chanded to server side logic
     const password = this.state.password
-    return fetch('https://farmshare-api.herokuapp.com/login', {
+    return fetch(`https://farmshare-api.herokuapp.com/${type}`, {
     	method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -45,7 +45,7 @@ _handlePressAlex(){
         return response.json()
       })
       .then((responseJson) => {
-        // console.log("responseJson: ", responseJson)
+         console.log("responseJson: ", responseJson)
         if (responseJson && Object.keys(responseJson).length) {
           this.props.navigator.push({
             title: 'HomePage',
@@ -53,7 +53,7 @@ _handlePressAlex(){
             passProps: {name: responseJson.fullname},
           })
         } else {
-          AlertIOS.alert("Not Found")
+          AlertIOS.alert("Account Not Found")
         }
         // AlertIOS.alert(JSON.stringify(responseJson))
 
@@ -63,6 +63,16 @@ _handlePressAlex(){
       });
 
   }
+
+  _loginButton() {
+    this._makeRequest("login")
+
+  }
+
+  _registerButton() {
+        this._makeRequest("signup");
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -84,8 +94,13 @@ _handlePressAlex(){
         />
         <Button
           style={styles.button}
-          onPress={() => this._handlePress()}>
-          Sign In
+          onPress={() => this._loginButton()}>
+          Login
+        </Button>
+        <Button
+          style={styles.button}
+          onPress={() => this._registerButton}>
+          Register
         </Button>
       </View>
     );
