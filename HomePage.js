@@ -38,6 +38,7 @@ import ProfilePage from './ProfilePage.js'
 import Button from 'react-native-button'
 import JobListPageRequester from './JobListPageRequester.js'
 import  CreateAJob from './CreateAJob'
+import MessagesPage from './MessagesPage'
 
 class HomePage extends Component {
   constructor(props) {
@@ -69,6 +70,13 @@ class HomePage extends Component {
     })
   }
 
+  _onGoToMessengerPressed() {
+    this.props.navigator.push({
+      title: 'Messenger',
+      component:MessagesPage 
+    })
+  }
+
   render(){
     return (
       <View style={styles.container}>
@@ -81,6 +89,9 @@ class HomePage extends Component {
           </Button>
           <Button style={styles.button} onPress={this._onGoToCreateAJobPressed.bind(this)}>
             <Text> Create a a New Job </Text>
+          </Button>
+          <Button style={styles.button} onPress={this._onGoToMessengerPressed.bind(this)}>
+            <Text> GoTo Messages Page </Text>
           </Button>
       </View>
     )
