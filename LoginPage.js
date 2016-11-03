@@ -99,7 +99,7 @@ _handlePressAlex(){
         </Button>
         <Button
           style={styles.button}
-          onPress={() => this._registerButton}>
+          onPress={() => this._registerButton()}>
           Register
         </Button>
       </View>
