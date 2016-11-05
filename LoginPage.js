@@ -50,7 +50,11 @@ _handlePressAlex(){
           this.props.navigator.push({
             title: 'HomePage',
             component: HomePage,
-            passProps: {name: responseJson.fullname},
+            passProps: {
+              name: responseJson.fullname,
+              email: responseJson.email
+            },
+
           })
         } else {
           AlertIOS.alert("Account Not Found")

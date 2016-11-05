@@ -16,7 +16,13 @@ import styles from './styles.js';
 import Button from 'react-native-button'
 
 class CreateAJob extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: 'SomeName'
+    }
 
+  }
   _makeAPlantingJob(){
     AlertIOS.alert("trying to make planting job")
   }
@@ -29,6 +35,7 @@ class CreateAJob extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}> This is where we will create new jobs</Text>
+        <Text style={styles.welcome}> Email is: {this.props.email}</Text>
         <Button style={styles.button} onPress={this._makeAPlantingJob.bind(this)}>
           <Text> Make a Planting Job</Text>
         </Button>

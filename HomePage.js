@@ -44,7 +44,8 @@ class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: 'SomeName'
+      name: 'SomeName',
+      email: 'email'
     }
 
   }
@@ -66,21 +67,25 @@ class HomePage extends Component {
   _onGoToCreateAJobPressed() {
     this.props.navigator.push({
       title: 'CreateRequest a new Job',
-      component: CreateAJob
+      component: CreateAJob,
+      passProps: {
+        email: this.props.email
+      },
     })
   }
 
   _onGoToMessengerPressed() {
     this.props.navigator.push({
       title: 'Messenger',
-      component:MessagesPage 
+      component:MessagesPage
     })
   }
 
   render(){
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}> Hello {this.props.name}</Text>
+        <Text style={styles.welcome}> Hello {this.props.name} {this.props.email}</Text>
+
           <Button style={styles.button} onPress={this._onGoToProfileButtonPressed.bind(this)}>
             <Text> Go To ProfilePage </Text>
           </Button>
