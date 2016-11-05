@@ -23,8 +23,27 @@ class CreateAJob extends Component {
     }
 
   }
+
   _makeAPlantingJob(){
-    AlertIOS.alert("trying to make planting job")
+    return fetch(`https://farmshare-api.herokuapp.com/addJob/`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        creator: this.props.email,
+        type: 'Planter'
+      })
+    }
+  )
+  .then((response) => {
+    console.log("response: ", response);
+    return response.json()
+  })
+  .catch((error) => {
+    console.error(error);
+  });
   }
 
   _makeAHarvestingJob(){
