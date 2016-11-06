@@ -13,6 +13,14 @@ import {
 } from 'react-native';
 
 import styles from './styles.js';
+import Pusher from 'pusher-js/react-native';
+
+// Enable pusher logging - don't include this in production
+Pusher.logToConsole = true;
+
+const pusher = new Pusher('9bc209b52aec5eb5117c', {
+  encrypted: true
+});
 
 
 var myStyles = StyleSheet.create({
@@ -47,7 +55,11 @@ class HomePage extends Component {
       name: 'SomeName',
       email: 'email'
     }
-
+    console.log("props.email: ", props.email)
+    const channel = pusher.subscribe(props.email);
+    channel.bind('foundJob', data => {
+      console.log("data: ", data)
+    });
   }
 
   _onGoToProfileButtonPressed() {
