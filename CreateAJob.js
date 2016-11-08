@@ -52,7 +52,8 @@ class CreateAJob extends Component {
       },
       body: JSON.stringify({
         creator: this.props.email,
-        type: 'planter'
+        type: 'planter',
+        name: this.state.JobName
       })
     }
   )
@@ -74,7 +75,8 @@ class CreateAJob extends Component {
       },
       body: JSON.stringify({
         creator: this.props.email,
-        type: 'harvester'
+        type: 'harvester',
+        name: this.state.JobName
       })
     }
   )
