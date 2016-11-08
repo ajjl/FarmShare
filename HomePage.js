@@ -89,13 +89,12 @@ class HomePage extends Component {
       })
       .then(response => {
         console.log("in first .then");
-        console.log("response was: " + response);
-        response.json() }
+        console.log("response was: ", response);
+        return response.json() }
       )
       .then(json => {
         console.log("in second .then");
-        return
-        this._handleMatchResponse(json.response)})
+        return this._handleMatchResponse(json)})
 
       .catch( error =>{
         console.log("error in _getMatches");
@@ -112,8 +111,9 @@ class HomePage extends Component {
   }
 
   _handleMatchResponse(jsonResponse) {
-    console.log("jsonResponse was: " + jsonResponse);
-    console.log("matches were: " + jsonResponse);
+    console.log("in _handleMatchResponse");
+    console.log(`jsonResponse was:  ${jsonResponse}`);
+    console.log("matches were: " , jsonResponse);
     this.props.navigator.push({
       title: 'Matches',
       component: MatchResults,

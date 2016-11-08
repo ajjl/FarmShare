@@ -9,8 +9,9 @@ import {
   View,
   TouchableHighlight,
   ListView,
-  Text
 } from 'react-native';
+import { Container, Content, List, ListItem, Text, Icon, Badge } from 'native-base';
+
 
 import styles from './styles'
 
@@ -32,12 +33,62 @@ var myStyles = StyleSheet.create({
   }
 })
 
+//Should job detail have provider???
 class MatchResults extends Component {
+  constructor(props) {
+    super(props);
+  }
+  _getJobFromID(jobID){
+    console.log("in _getJobFromID");
+    return fetch(`https://farmshare-api.herokuapp.com/getJob`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: jobID
+      })
+    })
+    .then(response => {
+      console.log("in first .then");
+      console.log("response was: ", response);
+      return response.json() }
+    )
+    .then(json => {
+      console.log("in second .then");
+      return this._jobPressed(json)
+    })
+  }
+
+  _jobPressed(theJob){
+    console.log("in Job pressed");
+    this.props.navigator.push({
+      title: 'JobDetail',
+      component: 'JobDetail',
+      passProps: {
+        job: theJob
+      }
+    })
+  }
+
   render() {
     return (
-      <View style={styles.container} >
-        <Text> Match results page not done yet</Text>
-      </View>
+      <View style={styles.container}>
+      <Container>
+      <Content>
+          <List dataArray={this.props.matches}
+              renderRow={(match) =>
+                  <ListItem onPress={() => this._getJobFromID(match)}>
+
+                      <Text>{match.name}</Text>
+                      <Text>{match._id}</Text>
+                  </ListItem>
+              }>
+          </List>
+      </Content>
+  </Container>
+  </View>
     )
   }
 }
