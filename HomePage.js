@@ -73,6 +73,8 @@ class HomePage extends Component {
 //for finding matches
 
   _getMatches() {
+    console.log("in _getMatches");
+    console.log("email is: " + this.props.email);
     return
       fetch(`https://farmshare-api.herokuapp.com/getMatches`, {
         method: 'POST',
@@ -85,13 +87,25 @@ class HomePage extends Component {
         })
 
       })
-      .then(response => response.json() )
-      .then(json => this._handleMatchResponse(json.response))
-      .catch( error =>
+      .then(response => {
+        console.log("in first .then");
+        console.log("response was: " + response);
+        response.json() }
+      )
+      .then(json => {
+        console.log("in second .then");
+        return
+        this._handleMatchResponse(json.response)})
+
+      .catch( error =>{
+        console.log("error in _getMatches");
+
+        return
         this.setState({
           isLoading: false,
           message: 'Something bad happend '
         })
+      }
       )
 
   }
@@ -112,6 +126,7 @@ class HomePage extends Component {
 
 
   _onGetMatchesPressed(){
+    console.log("Get Matches Pressed");
     this._getMatches()
   }
 
@@ -173,7 +188,7 @@ class HomePage extends Component {
           <Button style={styles.button} onPress={this._onGoToNotificationPressed.bind(this)}>
             <Text> GoTo Notifications Page </Text>
           </Button>
-          <Button style={styles.button} onPress={this._onGetMatchesPressed.bind(this)}>
+          <Button style={styles.button} onPress={this._getMatches.bind(this)}>
             <Text> GoTo Matches Page </Text>
           </Button>
       </View>
