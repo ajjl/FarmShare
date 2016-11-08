@@ -48,19 +48,72 @@ import JobListPageRequester from './JobListPageRequester.js'
 import  CreateAJob from './CreateAJob'
 import MessagesPage from './MessagesPage'
 import NotificationsPage from './NotificationsPage'
+import MatchResults from './MatchesPage'
+
+
+
 
 class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLoading: false,
       name: 'SomeName',
-      email: 'email'
+      email: 'email',
+      message: ''
     }
+
     console.log("props.email: ", props.email)
     const channel = pusher.subscribe(props.email);
     channel.bind('foundJob', data => {
       console.log("data: ", data)
     });
+  }
+
+//for finding matches
+
+  _getMatches() {
+    return (
+      fetch(`https://farmshare-api.herokuapp.com/getMatches`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: this.props.email
+        })
+        }
+      })
+      .then(response => response.json() )
+      .then(json => this._handleMatchResponse(json.response))
+      .catch( error =>
+        this.setState({
+          isLoading: false,
+          message: 'Something bad happend ' + error
+        })
+        console.log("error in getting matches _getMAthces function")
+      )
+    )
+  }
+
+  _handleMatchResponse(jsonResponse) {
+    console.log("jsonResponse was: " + jsonResponse)
+    console.log("matches were: " jsonResponse.matches);
+    this.props.navigator.push({
+      title: 'Matches',
+      component: MatchResults
+      passProps: {
+        matches: jsonResponse.matches
+      }
+    })
+  }
+
+//end for finding matches
+
+
+  _onGetMatchesPressed(){
+    this._getMatches()
   }
 
   _onGoToProfileButtonPressed() {
@@ -120,6 +173,9 @@ class HomePage extends Component {
           </Button>
           <Button style={styles.button} onPress={this._onGoToNotificationPressed.bind(this)}>
             <Text> GoTo Notifications Page </Text>
+          </Button>
+          <Button style={styles.button} onPress={this._onGetMatchesPressed.bind(this)}>
+            <Text> GoTo Matches Page </Text>
           </Button>
       </View>
     )
