@@ -9,6 +9,7 @@ import {
   View,
   TouchableHighlight,
   ListView,
+  Navigator
 } from 'react-native';
 import { Container, Content, List, ListItem, Text, Icon, Badge } from 'native-base';
 
@@ -16,6 +17,10 @@ import JobDetail from './JobDetail'
 import styles from './styles'
 
 var myStyles = StyleSheet.create({
+  navContainer: {
+    flex: 1,
+    paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight+50
+  },
   textContainer: {
     flex: 1
   },
@@ -74,7 +79,7 @@ class MatchResults extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={myStyles.navContainer}>
       <Container>
       <Content>
           <List dataArray={this.props.matches}
