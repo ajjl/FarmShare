@@ -47,3 +47,5 @@ class JobDetail extends Component {
   )
   }
 }
+
+module.exports = JobDetail

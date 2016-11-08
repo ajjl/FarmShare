@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { Container, Content, List, ListItem, Text, Icon, Badge } from 'native-base';
 
-
+import JobDetail from './JobDetail'
 import styles from './styles'
 
 var myStyles = StyleSheet.create({
@@ -65,7 +65,7 @@ class MatchResults extends Component {
     console.log("in Job pressed");
     this.props.navigator.push({
       title: 'JobDetail',
-      component: 'JobDetail',
+      component: JobDetail,
       passProps: {
         job: theJob
       }
@@ -79,7 +79,7 @@ class MatchResults extends Component {
       <Content>
           <List dataArray={this.props.matches}
               renderRow={(match) =>
-                  <ListItem onPress={() => this._getJobFromID(match)}>
+                  <ListItem onPress={() => this._getJobFromID(match.jobId)}>
 
                       <Text>{match.name}</Text>
                       <Text>{match._id}</Text>
