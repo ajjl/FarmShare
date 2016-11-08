@@ -81,7 +81,7 @@ class HomePage extends Component {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          name: this.props.email
+          email: this.props.email
         })
         }
       })
@@ -99,12 +99,12 @@ class HomePage extends Component {
 
   _handleMatchResponse(jsonResponse) {
     console.log("jsonResponse was: " + jsonResponse)
-    console.log("matches were: " jsonResponse.matches);
+    console.log("matches were: " jsonResponse);
     this.props.navigator.push({
       title: 'Matches',
       component: MatchResults
       passProps: {
-        matches: jsonResponse.matches
+        matches: jsonResponse
       }
     })
   }
