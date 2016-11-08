@@ -75,7 +75,7 @@ class HomePage extends Component {
   _getMatches() {
     console.log("in _getMatches");
     console.log("email is: " + this.props.email);
-    return
+    return(
       fetch(`https://farmshare-api.herokuapp.com/getMatches`, {
         method: 'POST',
         headers: {
@@ -107,6 +107,7 @@ class HomePage extends Component {
         })
       }
       )
+    )
 
   }
 
