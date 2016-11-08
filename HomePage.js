@@ -73,7 +73,7 @@ class HomePage extends Component {
 //for finding matches
 
   _getMatches() {
-    return (
+    return
       fetch(`https://farmshare-api.herokuapp.com/getMatches`, {
         method: 'POST',
         headers: {
@@ -81,28 +81,27 @@ class HomePage extends Component {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email: this.props.email
+          'email': this.props.email
         })
-        }
+
       })
       .then(response => response.json() )
       .then(json => this._handleMatchResponse(json.response))
       .catch( error =>
         this.setState({
           isLoading: false,
-          message: 'Something bad happend ' + error
+          message: 'Something bad happend '
         })
-        console.log("error in getting matches _getMAthces function")
       )
-    )
+
   }
 
   _handleMatchResponse(jsonResponse) {
-    console.log("jsonResponse was: " + jsonResponse)
-    console.log("matches were: " jsonResponse);
+    console.log("jsonResponse was: " + jsonResponse);
+    console.log("matches were: " + jsonResponse);
     this.props.navigator.push({
       title: 'Matches',
-      component: MatchResults
+      component: MatchResults,
       passProps: {
         matches: jsonResponse
       }
