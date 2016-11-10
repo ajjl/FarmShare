@@ -87,7 +87,7 @@ class MatchResults extends Component {
               renderRow={(match) =>
                   <ListItem onPress={() => this._getJobFromID(match.jobId)}>
 
-                      <Text>{match.jobName}</Text>  
+                      <Text>{match.jobName}</Text>
                 {/*      <Text>{match._id}</Text> */}
                   </ListItem>
               }>
@@ -98,62 +98,5 @@ class MatchResults extends Component {
     )
   }
 }
-
-
-
-/*
-class MatchResults extends Component {
-  constructor(props) {
-    super(props);
-    var dataSource = new ListView.DataSource(
-      {rowHasChanged: (r1, r2) => r1.jobID !== r2.jobID}
-    )
-    this.state = {
-      isLoading: false,
-      message: '',
-      dataSource: dataSource.cloneWithRows(this.props.matches)
-    };
-  }
-
-
-  renderRow(rowData, sectionID, rowID) {
-
-    return (
-      <TouchableHighlight
-        onPress={()=> this.rowPressed(rowData.lister_url)}
-        underlayColor='#dddddd'>
-        <View>
-          <View style={myStyles.rowContainer}>
-            <View style={myStyles.textContainer}>
-              <Text style={myStyles.title} numberOfLines={1}>{rowData.title}</Text>
-            </View>
-          </View>
-          <View style={myStyles.separator}/>
-        </View>
-      </TouchableHighlight>
-    )
-  }
-
-  rowPressed(listerURL) {
-    var property = this.props.listings.filter(prop => prop.lister_url === listerURL)[0];
-
-    this.props.navigator.push({
-      title: "JobDetail",
-      component: JobDetailView,
-      passProps: {jobID: jobID}
-    })
-  }
-
-  render(){
-    return(
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={this.renderRow.bind(this)}/>
-    )
-  }
-
-
-}
-*/
 
 module.exports = MatchResults;
