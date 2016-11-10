@@ -51,6 +51,7 @@ _handlePressAlex(){
             title: 'HomePage',
             component: HomePage,
             passProps: {
+              user: responseJson,
               name: responseJson.fullname,
               email: responseJson.email
             },
