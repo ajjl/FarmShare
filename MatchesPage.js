@@ -82,12 +82,13 @@ class MatchResults extends Component {
       <View style={myStyles.navContainer}>
       <Container>
       <Content>
+      <Text style={myStyles.title}> Your Job Matches: </Text>
           <List dataArray={this.props.matches}
               renderRow={(match) =>
                   <ListItem onPress={() => this._getJobFromID(match.jobId)}>
 
-                      <Text>{match.name}</Text>
-                      <Text>{match._id}</Text>
+                      <Text>{match.jobName}</Text>  
+                {/*      <Text>{match._id}</Text> */}
                   </ListItem>
               }>
           </List>

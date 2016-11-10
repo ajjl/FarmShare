@@ -9,6 +9,7 @@ import {
   View,
   TouchableHighlight,
   ListView,
+  Navigator,
 } from 'react-native';
 import { Container, Content, List, ListItem, Text, Icon, Badge } from 'native-base';
 
@@ -18,6 +19,10 @@ import styles from './styles'
 var myStyles = StyleSheet.create({
   textContainer: {
     flex: 1
+  },
+  navContainer: {
+    flex: 1,
+    paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight+50
   },
   separator: {
     height: 1,
@@ -39,10 +44,32 @@ class JobDetail extends Component {
   }
   render() {
     return (
-    <View style={styles.container}>
-
-      <Text> Job Name: {this.props.job.name} </Text>
-
+    <View style={myStyles.navContainer}>
+    <Text> Job Details: </Text>
+    <Container>
+          <Content>
+              <List>
+                  <ListItem >
+                      <View sytle={myStyles.rowContainer}>
+                      <Text style={myStyles.title}>Name: </Text>
+                      <Text >{this.props.job.name} </Text>
+                      </View>
+                  </ListItem>
+                  <ListItem>
+                      <View sytle={myStyles.rowContainer}>
+                      <Text style={myStyles.title}>Type: </Text>
+                      <Text >{this.props.job.type} </Text>
+                      </View>
+                  </ListItem>
+                  <ListItem>
+                      <View sytle={myStyles.rowContainer}>
+                      <Text style={myStyles.title}>Creator: </Text>
+                      <Text >{this.props.job.creator}</Text>
+                      </View>
+                  </ListItem>
+              </List>
+          </Content>
+      </Container>
     </View>
   )
   }
