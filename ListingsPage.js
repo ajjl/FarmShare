@@ -39,7 +39,7 @@ var myStyles = StyleSheet.create({
 })
 
 //Should job detail have provider???
-class MatchResults extends Component {
+class Listings extends Component {
   constructor(props) {
     super(props);
   }
@@ -66,29 +66,16 @@ class MatchResults extends Component {
     })
   }
 
-  _jobPressed(theJob){
-    console.log("in Job pressed");
-    this.props.navigator.push({
-      title: 'JobDetail',
-      component: JobDetail,
-      passProps: {
-        job: theJob
-      }
-    })
-  }
-
   render() {
     return (
       <View style={myStyles.navContainer}>
       <Container>
       <Content>
       <Text style={myStyles.title}> Your Job Matches: </Text>
-          <List dataArray={this.props.matches}
-              renderRow={(match) =>
-                  <ListItem onPress={() => this._getJobFromID(match.jobId)}>
-
-                      <Text>{match.jobName}</Text>
-                {/*      <Text>{match._id}</Text> */}
+          <List dataArray={this.props.jobs}
+              renderRow={(job) =>
+                <ListItem>
+                      <Text>{job.name}</Text>
                   </ListItem>
               }>
           </List>
@@ -99,4 +86,6 @@ class MatchResults extends Component {
   }
 }
 
-module.exports = MatchResults;
+
+
+module.exports = Listings;

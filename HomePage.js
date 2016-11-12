@@ -49,6 +49,7 @@ import  CreateAJob from './CreateAJob'
 import MessagesPage from './MessagesPage'
 import NotificationsPage from './NotificationsPage'
 import MatchResults from './MatchesPage'
+import Listings from './ListingsPage'
 
 
 
@@ -71,6 +72,43 @@ class HomePage extends Component {
   }
 
 //for finding matches
+
+_getJobListings(){
+  console.log("in _getJobListings");
+  console.log("email is: " + this.props.email);
+  return(
+    fetch(`https://farmshare-api.herokuapp.com/getJobByRequester`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        'email': this.props.email
+      })
+
+    })
+    .then(response => {
+      console.log("in first .then");
+      console.log("response was: ", response);
+      return response.json() }
+    )
+    .then(json => {
+      console.log("in second .then");
+      return this._handleJobResponse(json)})
+
+    .catch( error =>{
+      console.log("error in _getJobListings");
+
+      return
+      this.setState({
+        isLoading: false,
+        message: 'Something bad happend '
+      })
+    }
+    )
+  )
+}
 
   _getMatches() {
     console.log("in _getMatches");
@@ -117,6 +155,20 @@ class HomePage extends Component {
     this.props.navigator.push({
       title: 'Matches',
       component: MatchResults,
+      passProps: {
+        matches: jsonResponse
+      }
+    })
+  }
+
+
+  _handleJobResponse(jsonResponse) {
+    console.log("in _handleJobResponse");
+    console.log(`jsonResponse was:  ${jsonResponse}`);
+    console.log("Jobs were: " , jsonResponse);
+    this.props.navigator.push({
+      title: 'JobListings',
+      component: Listings,
       passProps: {
         matches: jsonResponse
       }
@@ -190,7 +242,10 @@ class HomePage extends Component {
             <Text> GoTo Notifications Page </Text>
           </Button>
           <Button style={styles.button} onPress={this._getMatches.bind(this)}>
-            <Text> GoTo Matches Page </Text>
+            <Text> GoTo Matches Page (See jobs u could b provider for)</Text>
+          </Button>
+          <Button style={styles.button} onPress={this._getJobListings.bind(this)}>
+            <Text> GoTo Your Listings Page (See Jobs u have requested)</Text>
           </Button>
       </View>
     )
