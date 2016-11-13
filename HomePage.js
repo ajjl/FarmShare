@@ -188,7 +188,9 @@ _getJobListings(){
     this.props.navigator.push({
       title: 'ProfilePage',
       component: ProfilePage,
-      user: this.props.user
+      passProps: {
+        user: this.props.user
+      }
     })
   }
 
@@ -196,7 +198,9 @@ _getJobListings(){
     this.props.navigator.push({
       title: 'Job List Page',
       component: JobListPageRequester,
-      user: this.props.user
+      passProps: {
+        user: this.props.user
+      }
     })
   }
 
