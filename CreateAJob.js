@@ -39,7 +39,7 @@ class CreateAJob extends Component {
     super(props);
     this.state = {
       JobName: 'SomeJobName',
-      zipcode: 52240
+      zipcode: '52240'
     }
 
   }
@@ -61,14 +61,21 @@ class CreateAJob extends Component {
   )
   .then((response) => {
     console.log("response: ", response);
-    return response.json()
+    console.log("response.json(): ", response.json())
   })
   .catch((error) => {
-    console.error(error);
+    console.error("error: ", error);
   });
   }
 
   _makeAHarvestingJob(){
+    console.log("my zip: " + this.state.zipcode)
+    console.log("json req: " + JSON.stringify({
+      creator: this.props.email,
+      type: 'harvester',
+      name: this.state.JobName,
+      zipcode: this.state.zipcode
+    }));
     return fetch(`https://farmshare-api.herokuapp.com/addJob/`, {
       method: 'POST',
       headers: {
