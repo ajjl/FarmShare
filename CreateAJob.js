@@ -78,7 +78,7 @@ class CreateAJob extends Component {
       body: JSON.stringify({
         creator: this.props.email,
         type: 'harvester',
-        name: this.state.JobNamea,
+        name: this.state.JobName,
         zipcode: this.state.zipcode
       })
     }
