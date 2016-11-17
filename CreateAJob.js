@@ -38,7 +38,8 @@ class CreateAJob extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      JobName: 'SomeJobName'
+      JobName: 'SomeJobName',
+      zipcode: 52240
     }
 
   }
@@ -53,7 +54,8 @@ class CreateAJob extends Component {
       body: JSON.stringify({
         creator: this.props.email,
         type: 'planter',
-        name: this.state.JobName
+        name: this.state.JobName,
+        zipcode: this.state.zipcode
       })
     }
   )
@@ -76,7 +78,8 @@ class CreateAJob extends Component {
       body: JSON.stringify({
         creator: this.props.email,
         type: 'harvester',
-        name: this.state.JobName
+        name: this.state.JobNamea,
+        zipcode: this.state.zipcode
       })
     }
   )
@@ -100,6 +103,13 @@ class CreateAJob extends Component {
           style={myStyles.searchInput}
           placeholeder="Enter a Name For the Job"
           onChangeText={(text) => this.setState({JobName: text})}/>
+        </View>
+        <View style={myStyles.flowRight}>
+          <Text> Zipcode: </Text>
+          <TextInput
+          style={myStyles.searchInput}
+          placeholeder="Enter a location (zipcode)"
+          onChangeText={(text) => this.setState({zipcode: text})}/>
         </View>
         <Button style={styles.button} onPress={this._makeAPlantingJob.bind(this)}>
           <Text> Make a Planting Job</Text>
