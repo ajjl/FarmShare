@@ -10,7 +10,7 @@ import {
   Navigator
 } from 'react-native';
 
-import { Container, Content, List, ListItem, Text, Icon, Badge } from 'native-base';
+import { Container, Content, List, ListItem, Text, Icon, Badge,CheckBox } from 'native-base';
 
 import JobDetail from './JobDetail'
 import styles from './styles'
@@ -74,15 +74,34 @@ class ProfilePage extends Component {
                     </ListItem>
                     <ListItem>
                         <View sytle={myStyles.rowContainer}>
-                        <Text style={myStyles.title}>Zipcode: </Text>
-                        <Text >{this.props.user.zipcode}</Text>
+                        <Text style={myStyles.title}>Zipcode: {this.props.user.zipcode}</Text>
+                        <Text >Click to edit</Text>
                         </View>
                     </ListItem>
-                    <ListItem onPress={this._goToUserProviderInfo.bind(this)}>
+                    <ListItem >
                         <View sytle={myStyles.rowContainer}>
                         <Text style={myStyles.title}>ProviderInfo: </Text>
-                        <Text >This is a button</Text>
                         </View>
+                    </ListItem>
+                    <ListItem>
+                        <View sytle={myStyles.rowContainer}>
+                        <Text style={myStyles.title}>Max Distance: {this.props.user.zipcode}</Text>
+                        <Text >Tap to edit</Text>
+                        </View>
+                    </ListItem>
+                    <ListItem>
+                        <View sytle={myStyles.rowContainer}>
+                        <Text style={myStyles.title}>Max Distance: {this.props.user.zipcode}</Text>
+                        <Text >Tap to edit</Text>
+                        </View>
+                    </ListItem>
+                    <ListItem>
+                      <CheckBox checked={true} />
+                      <Text>Harvester</Text>
+                    </ListItem>
+                    <ListItem>
+                      <CheckBox checked={false} />
+                      <Text>Planter</Text>
                     </ListItem>
                 </List>
             </Content>
