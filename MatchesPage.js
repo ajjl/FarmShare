@@ -92,7 +92,7 @@ class MatchResults extends Component {
 
                       <Text>{match.jobName}</Text>
                       <Text style={myStyles.bld}>  Creator: {match.creator} </Text>
-                      <Text style={myStyles.bld}>  Provider: {match.provider} </Text>
+                      <Text style={myStyles.bld}>  Distance: {match.distance/1000} km </Text>
                 {/*      <Text>{match._id}</Text> */}
                   </ListItem>
               }>

@@ -42,6 +42,11 @@ var myStyles = StyleSheet.create({
 class ProfilePage extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+
+      planterCheckedState: this.props.user.planter || false,
+      harvesterCheckedState: this.props.user.harvester || false
+    }
   }
    _goToUserProviderInfo() {
      this.props.navigator.push ({
@@ -53,7 +58,16 @@ class ProfilePage extends Component {
      })
    }
 
+   _harvesterChecked(){
+     this.setState({harvesterCheckedState: !this.state.harvesterCheckedState})
+   }
+
+   _planterChecked(){
+     this.setState({planterCheckedState: !this.state.planterCheckedState})
+   }
+
   render() {
+    console.log("THIS>STATE IS : @#@#@#@#@: " + JSON.stringify(this.state));
     return (
       <View style={myStyles.navContainer}>
       <Text> User: {this.props.user.fullname} </Text>
@@ -83,24 +97,19 @@ class ProfilePage extends Component {
                         <Text style={myStyles.title}>ProviderInfo: </Text>
                         </View>
                     </ListItem>
+
                     <ListItem>
                         <View sytle={myStyles.rowContainer}>
-                        <Text style={myStyles.title}>Max Distance: {this.props.user.zipcode}</Text>
+                        <Text style={myStyles.title}>Max Distance: {this.props.user.maxDistance/1000}km</Text>
                         <Text >Tap to edit</Text>
                         </View>
                     </ListItem>
-                    <ListItem>
-                        <View sytle={myStyles.rowContainer}>
-                        <Text style={myStyles.title}>Max Distance: {this.props.user.zipcode}</Text>
-                        <Text >Tap to edit</Text>
-                        </View>
-                    </ListItem>
-                    <ListItem>
-                      <CheckBox checked={true} />
+                    <ListItem onPress={this._harvesterChecked.bind(this)}>
+                      <CheckBox checked={this.state.harvesterCheckedState} />
                       <Text>Harvester</Text>
                     </ListItem>
-                    <ListItem>
-                      <CheckBox checked={false} />
+                    <ListItem onPress={this._planterChecked.bind(this)}>
+                      <CheckBox checked={this.state.planterCheckedState}/>
                       <Text>Planter</Text>
                     </ListItem>
                 </List>
