@@ -75,7 +75,8 @@ class MatchResults extends Component {
       title: 'JobDetail',
       component: JobDetail,
       passProps: {
-        job: theJob
+        job: theJob,
+        isCreator: false
       }
     })
   }

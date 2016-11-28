@@ -90,7 +90,7 @@ _getJobListings(){
     })
     .then(response => response.json())
     .then(json => {
-      console.log("in second .then: ", json);
+      console.log("in second .then of _getJObListings: ", json);
       return this._handleJobResponse(json)})
 
     .catch( error =>{
@@ -164,7 +164,8 @@ _getJobListings(){
     console.log("Jobs were: " , jsonResponse);
     this.props.navigator.push({
       title: 'JobListings',
-      component: Listings,
+      //component: Listings,
+      component: JobListPageRequester,
       passProps: {
         matches: jsonResponse,
         user: this.props.user
