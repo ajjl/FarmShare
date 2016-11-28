@@ -43,6 +43,8 @@ class JobDetail extends Component {
     super(props);
   }
   render() {
+    console.log("props: " + this.props);
+    console.log("job " + JSON.stringify(this.props.job));
     return (
     <View style={myStyles.navContainer}>
     <Text> Job Details: </Text>
@@ -74,11 +76,30 @@ class JobDetail extends Component {
                       </View>
                   </ListItem>
               </List>
+              {this.props.match?this.renderMatch():this.renderCrap()}
           </Content>
       </Container>
     </View>
   )
   }
+
+  renderCrap(){
+    return(
+      <View>
+        <Text></Text>
+      </View>
+    )
+  }
+  renderMatch() {
+    return (
+      <ListItem>
+      <View style={myStyles.rowContainer}>
+      <Text style={myStyles.title}>Your Matches (only see this if provider has accpted): </Text>
+      </View>
+      </ListItem>
+    )
+  }
 }
+
 
 module.exports = JobDetail

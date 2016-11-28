@@ -71,7 +71,7 @@ class Listings extends Component {
       <View style={myStyles.navContainer}>
       <Container>
       <Content>
-      <Text style={myStyles.title}> Your Job Matches: </Text>
+      <Text style={myStyles.title}> Your Job ListingPage: </Text>
           <List dataArray={this.props.jobs}
               renderRow={(job) =>
                 <ListItem>
