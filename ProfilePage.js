@@ -10,7 +10,7 @@ import {
   Navigator
 } from 'react-native';
 
-import { Container, Content, List, ListItem, Text, Icon, Badge,CheckBox } from 'native-base';
+import { Container, Content, List, ListItem, Text, Icon, Badge,CheckBox, Button } from 'native-base';
 
 import JobDetail from './JobDetail'
 import styles from './styles'
@@ -58,6 +58,40 @@ class ProfilePage extends Component {
      })
    }
 
+   _changeZipcode(){
+     console.log("change zipcode!")
+     AlertIOS.prompt(
+      'Enter a value',
+      null,
+      text => {
+        console.log("You entered "+text)
+        this.props.user.zipcode = text
+        console.log("this.props.user: ", this.props.user)
+        this.forceUpdate()
+        return this._updateUser()
+      }
+    )
+   }
+
+   _updateUser(){
+     return(
+       fetch(`https://farmshare-api.herokuapp.com/saveUser`, {
+         method: 'POST',
+         headers: {
+           'Accept': 'application/json',
+           'Content-Type': 'application/json',
+         },
+         body: JSON.stringify(this.props.user)
+
+       })
+       .then(response => {
+         console.log("in first .then");
+         console.log("response was: ", response);
+         return response.json()
+       })
+     )
+   }
+
    _harvesterChecked(){
      this.setState({harvesterCheckedState: !this.state.harvesterCheckedState})
    }
@@ -89,7 +123,7 @@ class ProfilePage extends Component {
                     <ListItem>
                         <View sytle={myStyles.rowContainer}>
                         <Text style={myStyles.title}>Zipcode: {this.props.user.zipcode}</Text>
-                        <Text >Click to edit</Text>
+                        <Text onPress={this._changeZipcode.bind(this)}>Click to edit</Text>
                         </View>
                     </ListItem>
                     <ListItem >
