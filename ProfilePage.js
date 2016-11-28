@@ -73,6 +73,20 @@ class ProfilePage extends Component {
     )
    }
 
+   _changeMaxDistance(){
+     console.log("change zipcode!")
+     AlertIOS.prompt(
+      'Enter a number(KM)',
+      null,
+      text => {
+        console.log("You entered "+text)
+        this.props.user.maxDistance = +text * 1000
+        this.forceUpdate()
+        return this._updateUser()
+      }
+    )
+   }
+
    _updateUser(){
      return(
        fetch(`https://farmshare-api.herokuapp.com/saveUser`, {
@@ -84,20 +98,24 @@ class ProfilePage extends Component {
          body: JSON.stringify(this.props.user)
 
        })
-       .then(response => {
-         console.log("in first .then");
-         console.log("response was: ", response);
-         return response.json()
+       .then(response => response.json())
+       .catch(err => {
+         console.log("Err !: ", err);
        })
      )
    }
 
    _harvesterChecked(){
+     this.props.user.harvester = !this.props.user.harvester
      this.setState({harvesterCheckedState: !this.state.harvesterCheckedState})
+     this._updateUser()
    }
 
    _planterChecked(){
+     this.props.user.planter = !this.props.user.planter
      this.setState({planterCheckedState: !this.state.planterCheckedState})
+     console.log("got herer 11")
+     this._updateUser()
    }
 
   render() {
@@ -120,10 +138,10 @@ class ProfilePage extends Component {
                         <Text > {this.props.user.email}</Text>
                         </View>
                     </ListItem>
-                    <ListItem>
+                    <ListItem onPress={this._changeZipcode.bind(this)}>
                         <View sytle={myStyles.rowContainer}>
                         <Text style={myStyles.title}>Zipcode: {this.props.user.zipcode}</Text>
-                        <Text onPress={this._changeZipcode.bind(this)}>Click to edit</Text>
+                        <Text>Click to edit</Text>
                         </View>
                     </ListItem>
                     <ListItem >
@@ -132,10 +150,10 @@ class ProfilePage extends Component {
                         </View>
                     </ListItem>
 
-                    <ListItem>
+                    <ListItem onPress={this._changeMaxDistance.bind(this)}>
                         <View sytle={myStyles.rowContainer}>
                         <Text style={myStyles.title}>Max Distance: {this.props.user.maxDistance/1000}km</Text>
-                        <Text >Tap to edit</Text>
+                        <Text>Tap to edit</Text>
                         </View>
                     </ListItem>
                     <ListItem onPress={this._harvesterChecked.bind(this)}>

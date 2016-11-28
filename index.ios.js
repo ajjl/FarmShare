@@ -1,4 +1,5 @@
 'use strict'
+global.___DEV___ = false
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -39,7 +40,7 @@ class AwesomeProject extends Component {
         style={styles.container}
         initialRoute={{
           title: 'FarmShare Login',
-          component: LoginPage, 
+          component: LoginPage,
         }}
       />
     )

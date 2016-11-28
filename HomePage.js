@@ -16,7 +16,7 @@ import styles from './styles.js';
 import Pusher from 'pusher-js/react-native';
 
 // Enable pusher logging - don't include this in production
-Pusher.logToConsole = true;
+Pusher.logToConsole = false;
 
 const pusher = new Pusher('9bc209b52aec5eb5117c', {
   encrypted: true
