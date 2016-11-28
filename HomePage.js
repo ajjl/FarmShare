@@ -170,7 +170,8 @@ _getJobListings(){
       title: 'JobListings',
       component: Listings,
       passProps: {
-        matches: jsonResponse
+        matches: jsonResponse,
+        user: this.props.user
       }
     })
   }
@@ -186,14 +187,20 @@ _getJobListings(){
   _onGoToProfileButtonPressed() {
     this.props.navigator.push({
       title: 'ProfilePage',
-      component: ProfilePage
+      component: ProfilePage,
+      passProps: {
+        user: this.props.user
+      }
     })
   }
 
   _onGoToJobListingsPressed() {
     this.props.navigator.push({
       title: 'Job List Page',
-      component: JobListPageRequester
+      component: JobListPageRequester,
+      passProps: {
+        user: this.props.user
+      }
     })
   }
 
@@ -202,7 +209,9 @@ _getJobListings(){
       title: 'CreateRequest a new Job',
       component: CreateAJob,
       passProps: {
-        email: this.props.email
+        email: this.props.email,
+        user: this.props.user
+
       },
     })
   }

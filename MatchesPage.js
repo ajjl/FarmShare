@@ -35,6 +35,9 @@ var myStyles = StyleSheet.create({
   rowContainer: {
     flexDirection: 'row',
     padding: 10
+  },
+  bld: {
+    fontWeight: '500'
   }
 })
 
@@ -88,6 +91,8 @@ class MatchResults extends Component {
                   <ListItem onPress={() => this._getJobFromID(match.jobId)}>
 
                       <Text>{match.jobName}</Text>
+                      <Text style={myStyles.bld}>  Creator: {match.creator} </Text>
+                      <Text style={myStyles.bld}>  Distance: {match.distance/1000} km </Text>
                 {/*      <Text>{match._id}</Text> */}
                   </ListItem>
               }>

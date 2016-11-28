@@ -67,6 +67,12 @@ class JobDetail extends Component {
                       <Text >{this.props.job.creator}</Text>
                       </View>
                   </ListItem>
+                  <ListItem>
+                      <View style={myStyles.rowContainer}>
+                      <Text style={myStyles.title}>Location: </Text>
+                      <Text> {this.props.job.zipcode}</Text>
+                      </View>
+                  </ListItem>
               </List>
           </Content>
       </Container>
