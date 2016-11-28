@@ -102,11 +102,12 @@ _handlePressAlex(){
           onPress={() => this._loginButton()}>
           Login
         </Button>
-        <Button
+        {/*<Button
           style={styles.button}
           onPress={() => this._registerButton()}>
           Register
         </Button>
+      */}
       </View>
     );
   }

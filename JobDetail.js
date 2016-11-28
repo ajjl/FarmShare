@@ -75,19 +75,31 @@ class JobDetail extends Component {
                       <Text> {this.props.job.zipcode}</Text>
                       </View>
                   </ListItem>
-                  {this.props.match?`
-                    <ListItem>
-                    View style=${myStyles.rowContainer}>
-                    <Text style=${myStyles.title}>Your Matches (only see this if provider has accpted): </Text>
-                    </ListItem>`
-                    :""}
-
               </List>
+              {this.props.match?this.renderMatch():this.renderCrap()}
           </Content>
       </Container>
     </View>
   )
   }
+
+  renderCrap(){
+    return(
+      <View>
+        <Text></Text>
+      </View>
+    )
+  }
+  renderMatch() {
+    return (
+      <ListItem>
+      <View style={myStyles.rowContainer}>
+      <Text style={myStyles.title}>Your Matches (only see this if provider has accpted): </Text>
+      </View>
+      </ListItem>
+    )
+  }
 }
+
 
 module.exports = JobDetail

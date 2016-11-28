@@ -81,7 +81,7 @@ class JobListPageRequester extends Component {
 
   _getMatchFromJobId(jobId) {
     console.log("in _getMatchFromJobId");
-    return fetch(`http://localhost:3000/getMatchesByJob`, {
+    return fetch(`https://farmshare-api.herokuapp.com/getMatchesByJob`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
