@@ -77,7 +77,7 @@ _getJobListings(){
   console.log("in _getJobListings");
   console.log("email is: " + this.props.email);
   return(
-    fetch(`https://farmshare-api.herokuapp.com/getJobByRequester`, {
+    fetch(`https://farmshare-api.herokuapp.com/getMatchesRequester`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -88,17 +88,13 @@ _getJobListings(){
       })
 
     })
-    .then(response => {
-      console.log("in first .then");
-      console.log("response was: ", response);
-      return response.json() }
-    )
+    .then(response => response.json())
     .then(json => {
-      console.log("in second .then");
+      console.log("in second .then: ", json);
       return this._handleJobResponse(json)})
 
     .catch( error =>{
-      console.log("error in _getJobListings");
+      console.log("error in _getJobListings: ", error);
 
       return
       this.setState({

@@ -90,9 +90,9 @@ class CreateAJob extends Component {
       })
     }
   )
-  .then((response) => {
-    console.log("response: ", response);
-    return response.json()
+  .then(response => response.json())
+  .then(resJson => {
+    console.log("resJson: ", resJson)
   })
   .catch((error) => {
     console.error(error);
