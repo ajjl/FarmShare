@@ -7,12 +7,13 @@
   },
   "dependencies": {
     "bluebird": "^3.4.6",
-    "native-base": "^0.5.13",
-    "pusher-js": "^3.2.2",
-    "react": "15.3.2",
-    "react-native": "^0.34.1",
+    "native-base": "^0.5.18",
+    "pusher-js": "^3.2.4",
+    "react": "^15.4.1",
+    "react-native": "^0.38.0",
     "react-native-button": "^1.7.1",
     "react-native-css": "^1.2.44",
-    "react-native-dropdown": "0.0.6"
+    "react-native-dropdown": "0.0.6",
+    "watchman": "^0.1.8"
   }
 }
