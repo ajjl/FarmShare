@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { Container, Content, List, ListItem, Text, Icon, Badge } from 'native-base';
 
-import JobDetail from './JobDetail'
+import JobDetailProvider from './JobDetailProvider'
 import styles from './styles'
 
 var myStyles = StyleSheet.create({
@@ -73,7 +73,7 @@ class MatchResults extends Component {
     console.log("in Job pressed");
     this.props.navigator.push({
       title: 'JobDetail',
-      component: JobDetail,
+      component: JobDetailProvider,
       passProps: {
         job: theJob,
         isCreator: false
