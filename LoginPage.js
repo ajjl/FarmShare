@@ -11,6 +11,7 @@ import {
 } from 'react-native'
 
 import Button from 'react-native-button'
+import {Actions} from 'react-native-router-flux';
 
 import styles from './styles.js';
 import HomePage from './HomePage.js'
@@ -47,7 +48,7 @@ _handlePressAlex(){
       .then((responseJson) => {
          console.log("responseJson: ", responseJson)
         if (responseJson && Object.keys(responseJson).length) {
-          this.props.navigator.push({
+          /*this.props.navigator.push({
             title: 'HomePage',
             component: HomePage,
             passProps: {
@@ -56,6 +57,11 @@ _handlePressAlex(){
               email: responseJson.email
             },
 
+          })*/
+          Actions.HomePage({
+            user: responseJson,
+            name: responseJson.fullname,
+            email: responseJson.email
           })
         } else {
           AlertIOS.alert("Account Not Found")

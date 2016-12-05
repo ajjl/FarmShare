@@ -12,6 +12,8 @@ import {
   TouchableHighlight
 } from 'react-native';
 
+import {Actions} from 'react-native-router-flux';
+
 import styles from './styles.js';
 import Pusher from 'pusher-js/react-native';
 
@@ -42,16 +44,7 @@ var myStyles = StyleSheet.create({
   }
 });
 
-import ProfilePage from './ProfilePage.js'
 import Button from 'react-native-button'
-import JobListPageRequester from './JobListPageRequester.js'
-import  CreateAJob from './CreateAJob'
-import MessagesPage from './MessagesPage'
-import NotificationsPage from './NotificationsPage'
-import MatchResults from './MatchesPage'
-import Listings from './ListingsPage'
-
-
 
 
 class HomePage extends Component {
@@ -148,12 +141,8 @@ _getJobListings(){
     console.log("in _handleMatchResponse");
     console.log(`jsonResponse was:  ${jsonResponse}`);
     console.log("matches were: " , jsonResponse);
-    this.props.navigator.push({
-      title: 'Matches',
-      component: MatchResults,
-      passProps: {
-        matches: jsonResponse
-      }
+    Actions.MatchResults({
+      matches: jsonResponse
     })
   }
 
@@ -162,14 +151,10 @@ _getJobListings(){
     console.log("in _handleJobResponse");
     console.log(`jsonResponse was:  ${jsonResponse}`);
     console.log("Jobs were: " , jsonResponse);
-    this.props.navigator.push({
-      title: 'JobListings',
-      //component: Listings,
-      component: JobListPageRequester,
-      passProps: {
-        matches: jsonResponse,
-        user: this.props.user
-      }
+
+    Actions.JobListPageRequester({
+      matches: jsonResponse,
+      user: this.props.user
     })
   }
 
@@ -182,49 +167,30 @@ _getJobListings(){
   }
 
   _onGoToProfileButtonPressed() {
-    this.props.navigator.push({
-      title: 'ProfilePage',
-      component: ProfilePage,
-      passProps: {
-        user: this.props.user
-      }
+    Actions.ProfilePage({
+      user: this.props.user
     })
   }
 
   _onGoToJobListingsPressed() {
-    this.props.navigator.push({
-      title: 'Job List Page',
-      component: JobListPageRequester,
-      passProps: {
-        user: this.props.user
-      }
+    Actions.JobListPageRequester({
+      user: this.props.user
     })
   }
 
   _onGoToCreateAJobPressed() {
-    this.props.navigator.push({
-      title: 'CreateRequest a new Job',
-      component: CreateAJob,
-      passProps: {
-        email: this.props.email,
-        user: this.props.user
-
-      },
+    Actions.CreateAJob({
+      email: this.props.email,
+      user: this.props.user
     })
   }
 
   _onGoToMessengerPressed() {
-    this.props.navigator.push({
-      title: 'Messenger',
-      component:MessagesPage
-    })
+    Actions.MessagesPage()
   }
 
   _onGoToNotificationPressed() {
-    this.props.navigator.push({
-      title: 'Notifications',
-      component: NotificationsPage
-    })
+    Actions.NotificationsPage()
   }
 
   render(){

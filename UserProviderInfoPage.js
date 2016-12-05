@@ -7,7 +7,6 @@ import {
   TextInput,
   AlertIOS,
   StyleSheet,
-  Navigator
 } from 'react-native';
 
 import { Container, Content, List, ListItem, Text, Icon, Badge } from 'native-base';
@@ -18,7 +17,7 @@ import styles from './styles'
 var myStyles = StyleSheet.create({
   navContainer: {
     flex: 1,
-    paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight+50
+    paddingTop: 100
   },
   textContainer: {
     flex: 1
