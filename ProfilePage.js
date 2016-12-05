@@ -9,12 +9,9 @@ import {
   StyleSheet,
   Navigator
 } from 'react-native';
+import { Container, Content, CheckBox, List, ListItem, InputGroup, Input, Icon, Text, Picker, Button } from 'native-base';
 
-import { Container, Content, List, ListItem, Text, Icon, Badge,CheckBox, Button } from 'native-base';
-
-import JobDetail from './JobDetail'
 import styles from './styles'
-import UserProviderInfoPage from './UserProviderInfoPage'
 
 var myStyles = StyleSheet.create({
   navContainer: {
@@ -48,15 +45,6 @@ class ProfilePage extends Component {
       harvesterCheckedState: this.props.user.harvester || false
     }
   }
-   _goToUserProviderInfo() {
-     this.props.navigator.push ({
-       title: 'User Provider Info',
-       component: UserProviderInfoPage,
-       passProps: {
-         user: this.props.user
-       }
-     })
-   }
 
    _changeZipcode(){
      console.log("change zipcode!")
@@ -122,27 +110,23 @@ class ProfilePage extends Component {
     console.log("THIS>STATE IS : @#@#@#@#@: " + JSON.stringify(this.state));
     return (
       <View style={myStyles.navContainer}>
-      <Text> User: {this.props.user.fullname} </Text>
       <Container>
             <Content>
                 <List>
                     <ListItem >
-                        <View sytle={myStyles.rowContainer}>
-                        <Text style={myStyles.title}>Name: </Text>
-                        <Text >{this.props.user.fullname}</Text>
-                        </View>
+                      <InputGroup disabled>
+                        <Input inlineLabel label="First Name:" placeholder={this.props.user.fullname} />
+                      </InputGroup>
                     </ListItem>
                     <ListItem>
-                        <View sytle={myStyles.rowContainer}>
-                        <Text style={myStyles.title}>email: </Text>
-                        <Text > {this.props.user.email}</Text>
-                        </View>
+                      <InputGroup disabled>
+                        <Input inlineLabel label="username/email:" placeholder={this.props.user.email} />
+                      </InputGroup>
                     </ListItem>
                     <ListItem onPress={this._changeZipcode.bind(this)}>
-                        <View sytle={myStyles.rowContainer}>
-                        <Text style={myStyles.title}>Zipcode: {this.props.user.zipcode}</Text>
-                        <Text>Click to edit</Text>
-                        </View>
+                      <InputGroup disabled>
+                        <Input inlineLabel label="Zipcode:" placeholder={this.props.user.zipcode} />
+                      </InputGroup>
                     </ListItem>
                     <ListItem >
                         <View sytle={myStyles.rowContainer}>
