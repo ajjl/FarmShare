@@ -60,7 +60,7 @@ class AwesomeProject extends Component {
           <Scene key="MatchResults" component={MatchResults} title="MatchResults"  />
           <Scene key="Listings" component={Listings} title="Listings"  />
           <Scene key="JobDetailProvider" component={JobDetailProvider} title="JobDetailProvider"  />
-          <Scene key="JobDetail" component={JobDetail} title="JobDetail"  />
+          <Scene key="JobDetail" component={JobDetail} title="JobDetail(Creator/Requestor)"  />
 
         </Scene>
       </Router>

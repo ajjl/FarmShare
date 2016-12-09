@@ -45,7 +45,7 @@ class MatchResults extends Component {
   constructor(props) {
     super(props);
   }
-  _getJobFromID(jobID){
+  _getJobFromID(match){
     console.log("in _getJobFromID");
     return fetch(`https://farmshare-api.herokuapp.com/getJob`, {
       method: 'POST',
@@ -54,7 +54,7 @@ class MatchResults extends Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        id: jobID
+        id: match.jobId
       })
     })
     .then(response => {
@@ -64,14 +64,15 @@ class MatchResults extends Component {
     )
     .then(json => {
       console.log("in second .then");
-      return this._jobPressed(json)
+      return this._jobPressed(json, match)
     })
   }
 
-  _jobPressed(theJob){
+  _jobPressed(theJob, theMatch){
     console.log("in Job pressed");
     Actions.JobDetailProvider({
       job: theJob,
+      match: theMatch,
       isCreator: false
     })
   }
@@ -84,7 +85,7 @@ class MatchResults extends Component {
       <Text style={myStyles.title}> Your Job Matches: </Text>
           <List dataArray={this.props.matches}
               renderRow={(match) =>
-                  <ListItem onPress={() => this._getJobFromID(match.jobId)}>
+                  <ListItem onPress={() => this._getJobFromID(match)}>
 
                       <Text>{match.jobName}</Text>
                       <Text style={myStyles.bld}>  Creator: {match.creator} </Text>

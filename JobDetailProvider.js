@@ -42,12 +42,77 @@ class JobDetailProvider extends Component {
   constructor(props) {
     super(props);
   }
+  _getJobFromID(jobID){
+    console.log("in _getJobFromID");
+    return fetch(`https://farmshare-api.herokuapp.com/getJob`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: jobID
+      })
+    })
+    .then(response => {
+      console.log("in first .then");
+      console.log("response was: ", response);
+      return response.json() }
+    )
+    .then(json => {
+      console.log("in second .then");
+      return this._jobPressed(json)
+    })
+  }
 
-_rejectMatch() {
+_dismissMatch() {
+  this.props.match.providerDecision="dismissed"
+  console.log("in _dismissMatch");
   AlertIOS.alert("Your rejected the match")
+  return fetch(`https://farmshare-api.herokuapp.com/matchSwipe`, {
+    method: 'POST',
+    headers:{
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      matchId: this.props.match._id,
+      match: this.props.match
+    })
+  })
+  .then(response => {
+    console.log("in first .then");
+    console.log("response was: ", response);
+    return response.json() }
+  )
+  .then(json => {
+    console.log("in second .then");
+  })
 }
-_acceptMatch() {
+
+_applyMatch() {
+  this.props.match.providerDecision="applied"
+  console.log("in _rejectMatch");
   AlertIOS.alert("Your accepted the match")
+  return fetch(`https://farmshare-api.herokuapp.com/matchSwipe`, {
+    method: 'POST',
+    headers:{
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      matchId: this.props.match._id,
+      match: this.props.match
+    })
+  })
+  .then(response => {
+    console.log("in first .then");
+    console.log("response was: ", response);
+    return response.json() }
+  )
+  .then(json => {
+    console.log("in second .then");
+  })
 }
 
   render() {
@@ -63,6 +128,12 @@ _acceptMatch() {
                       <View sytle={myStyles.rowContainer}>
                       <Text style={myStyles.title}>Name: </Text>
                       <Text >{this.props.job.name} </Text>
+                      </View>
+                  </ListItem>
+                  <ListItem >
+                      <View sytle={myStyles.rowContainer}>
+                      <Text style={myStyles.title}>matchId: </Text>
+                      <Text >{this.props.match._id} </Text>
                       </View>
                   </ListItem>
                   <ListItem>
@@ -84,8 +155,8 @@ _acceptMatch() {
                       </View>
                   </ListItem>
               </List>
-              <Button block success onPress={this._acceptMatch.bind(this)}> Apply for Match </Button>
-              <Button block danger onPress={this._rejectMatch.bind(this)}> Dismiss Match </Button>
+              <Button block success onPress={this._applyMatch.bind(this)}> Apply for Match </Button>
+              <Button block danger onPress={this._dismissMatch.bind(this)}> Dismiss Match </Button>
           </Content>
       </Container>
     </View>
