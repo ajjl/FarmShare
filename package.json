@@ -14,6 +14,7 @@
     "react-native-button": "^1.7.1",
     "react-native-css": "^1.2.44",
     "react-native-dropdown": "0.0.6",
+    "react-native-router-flux": "^3.37.0",
     "watchman": "^0.1.8"
   }
 }

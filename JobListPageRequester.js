@@ -8,10 +8,9 @@ import {
   View,
   TextInput,
   AlertIOS,
-  NavigatorIOS,
-  Navigator
 } from 'react-native';
 import { Container, Content, List, ListItem, Text, Icon, Badge } from 'native-base';
+import {Actions} from 'react-native-router-flux'
 
 import Promise from 'bluebird';
 
@@ -21,7 +20,7 @@ import styles from './styles.js'
 var myStyles = StyleSheet.create({
   navContainer: {
     flex: 1,
-    paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight+50
+    paddingTop: 100
   },
   textContainer: {
     flex: 1
@@ -113,13 +112,9 @@ class JobListPageRequester extends Component {
     ]).spread((theJob, matches) => {
       console.log("job from promise was: " + theJob);
       console.log("matches from promise was" + matches);
-      this.props.navigator.push({
-        title: 'JobDetail',
-        component: JobDetail,
-        passProps: {
-          job: theJob,
-          matches: matches
-        }
+      Actions.JobDetail({
+        job: theJob,
+        matches: matches
       })
     })
       .catch(error => {

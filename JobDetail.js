@@ -9,7 +9,6 @@ import {
   View,
   TouchableHighlight,
   ListView,
-  Navigator,
 } from 'react-native';
 import { Container, Content, List, ListItem, Text, Icon, Badge } from 'native-base';
 
@@ -22,7 +21,7 @@ var myStyles = StyleSheet.create({
   },
   navContainer: {
     flex: 1,
-    paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight+50
+    paddingTop: 100
   },
   separator: {
     height: 1,

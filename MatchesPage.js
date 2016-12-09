@@ -9,17 +9,16 @@ import {
   View,
   TouchableHighlight,
   ListView,
-  Navigator
 } from 'react-native';
 import { Container, Content, List, ListItem, Text, Icon, Badge } from 'native-base';
+import {Actions} from 'react-native-router-flux';
 
-import JobDetailProvider from './JobDetailProvider'
 import styles from './styles'
 
 var myStyles = StyleSheet.create({
   navContainer: {
     flex: 1,
-    paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight+50
+    paddingTop: 100
   },
   textContainer: {
     flex: 1
@@ -71,13 +70,9 @@ class MatchResults extends Component {
 
   _jobPressed(theJob){
     console.log("in Job pressed");
-    this.props.navigator.push({
-      title: 'JobDetail',
-      component: JobDetailProvider,
-      passProps: {
-        job: theJob,
-        isCreator: false
-      }
+    Actions.JobDetailProvider({
+      job: theJob,
+      isCreator: false
     })
   }
 
