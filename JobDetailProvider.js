@@ -84,8 +84,8 @@ _acceptMatch() {
                       </View>
                   </ListItem>
               </List>
-              <Button block success onPress={this._acceptMatch.bind(this)}> Accept Match </Button>
-              <Button block danger onPress={this._rejectMatch.bind(this)}> Reject Match </Button>
+              <Button block success onPress={this._acceptMatch.bind(this)}> Apply for Match </Button>
+              <Button block danger onPress={this._rejectMatch.bind(this)}> Dismiss Match </Button>
           </Content>
       </Container>
     </View>
