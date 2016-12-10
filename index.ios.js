@@ -27,6 +27,7 @@ import MatchResults from './MatchesPage'
 import Listings from './ListingsPage'
 import JobDetailProvider from './JobDetailProvider'
 import JobDetail from './JobDetail'
+import Chat from './chatView'
 
 
 
@@ -61,6 +62,7 @@ class AwesomeProject extends Component {
           <Scene key="Listings" component={Listings} title="Listings"  />
           <Scene key="JobDetailProvider" component={JobDetailProvider} title="JobDetailProvider"  />
           <Scene key="JobDetail" component={JobDetail} title="JobDetail(Creator/Requestor)"  />
+          <Scene key="Chat" component={Chat} title="Chat View"  />
 
         </Scene>
       </Router>

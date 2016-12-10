@@ -11,8 +11,11 @@ import {
   ListView,
   AlertIOS
 } from 'react-native';
-import { Button, Container, Content, List, ListItem, Text, Icon, Badge } from 'native-base';
-
+import { Button, Container, Content, List, ListItem, Text, Icon, Badge,
+  InputGroup,
+  Input,
+ } from 'native-base';
+import {Actions} from 'react-native-router-flux';
 
 import styles from './styles'
 
@@ -41,6 +44,9 @@ var myStyles = StyleSheet.create({
 class JobDetailProvider extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      message: ""
+    }
   }
   _getJobFromID(jobID){
     console.log("in _getJobFromID");
@@ -64,6 +70,32 @@ class JobDetailProvider extends Component {
       return this._jobPressed(json)
     })
   }
+
+_enterChat() {
+
+  console.log("aasdaa: ", this.props.match._id);
+  return fetch(`http://localhost:3000/enterChat`, {
+    method: 'POST',
+    headers:{
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      chatId: this.props.match._id
+    })
+  })
+  .then(response => response.json())
+  .then(res => {
+    console.log("messages: ", res.messages)
+    console.log("sender: ", this.props.match.provider)
+    Actions.Chat({
+      sender: this.props.match.provider,
+      messages: res.messages,
+      match: this.props.match
+    })
+  })
+
+}
 
 _dismissMatch() {
   this.props.match.providerDecision="dismissed"
@@ -116,8 +148,8 @@ _applyMatch() {
 }
 
   render() {
-    console.log("props: " + this.props);
-    console.log("job " + JSON.stringify(this.props.job));
+    // console.log("props: " + JSON.stringify(this.props));
+    // console.log("job " + JSON.stringify(this.props.job));
     return (
     <View style={myStyles.navContainer}>
     <Text> Job Details: </Text>
@@ -157,6 +189,7 @@ _applyMatch() {
               </List>
               <Button block success onPress={this._applyMatch.bind(this)}> Apply for Match </Button>
               <Button block danger onPress={this._dismissMatch.bind(this)}> Dismiss Match </Button>
+              <Button block onPress={this._enterChat.bind(this)}> Enter Chat </Button>
           </Content>
       </Container>
     </View>
