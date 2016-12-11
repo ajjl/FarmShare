@@ -62,6 +62,10 @@ class CreateAJob extends Component {
   .then((response) => {
     console.log("response: ", response);
     console.log("response.json(): ", response.json())
+    this.setState({
+      JobName: "",
+      zipcode: ""
+    })
   })
   .catch((error) => {
     console.error("error: ", error);
@@ -93,6 +97,10 @@ class CreateAJob extends Component {
   .then(response => response.json())
   .then(resJson => {
     console.log("resJson: ", resJson)
+    this.setState({
+      JobName: "",
+      zipcode: ""
+    })
   })
   .catch((error) => {
     console.error(error);
@@ -109,6 +117,7 @@ class CreateAJob extends Component {
           <TextInput
           style={myStyles.searchInput}
           placeholeder="Enter a Name For the Job"
+          value={this.state.JobName}
           onChangeText={(text) => this.setState({JobName: text})}/>
         </View>
         <View style={myStyles.flowRight}>
@@ -116,6 +125,7 @@ class CreateAJob extends Component {
           <TextInput
           style={myStyles.searchInput}
           placeholeder="Enter a location (zipcode)"
+          value={this.state.zipcode}
           onChangeText={(text) => this.setState({zipcode: text})}/>
         </View>
         <Button style={styles.button} onPress={this._makeAPlantingJob.bind(this)}>
