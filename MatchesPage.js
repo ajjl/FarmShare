@@ -37,7 +37,14 @@ var myStyles = StyleSheet.create({
   },
   bld: {
     fontWeight: '500'
+  },
+  acceptedThing: {
+    backgroundColor : '#66ff66'
+  },
+  normal: {
+
   }
+
 })
 
 //Should job detail have provider???
@@ -78,20 +85,18 @@ class MatchResults extends Component {
   }
 
   render() {
+    const legitMatches = []
+    for (const match of this.props.matches) {
+      if (match.creatorDecision !== "rejected") legitMatches.push(match)
+    }
     return (
       <View style={myStyles.navContainer}>
       <Container>
       <Content>
       <Text style={myStyles.title}> Your Job Matches: </Text>
-          <List dataArray={this.props.matches}
-              renderRow={(match) =>
-                  <ListItem onPress={() => this._getJobFromID(match)}>
+          <List dataArray={legitMatches}
+              renderRow={(match) => this._myRenderRow(match)
 
-                      <Text>{match.jobName}</Text>
-                      <Text style={myStyles.bld}>  Creator: {match.creator} </Text>
-                      <Text style={myStyles.bld}>  Distance: {match.distance/1000} km </Text>
-                {/*      <Text>{match._id}</Text> */}
-                  </ListItem>
               }>
           </List>
       </Content>
@@ -99,6 +104,26 @@ class MatchResults extends Component {
   </View>
     )
   }
+_myRenderRow(match){
+  let theStyle = 'normal'
+  if(match.providerDecision==="applied" && match.creatorDecision === "accepted"){
+    console.log("geen me!!!!!!!!!!!!!!!!!!");
+    theStyle = 'acceptedThing'
+  }
+  return(
+
+    <ListItem onPress={() => this._getJobFromID(match)} style={myStyles[theStyle]}>
+
+        <Text>{match.jobName}</Text>
+        <Text style={myStyles.bld}>  Creator: {match.creator} </Text>
+        <Text style={myStyles.bld}>  Distance: {match.distance/1000} km </Text>
+  {/*      <Text>{match._id}</Text> */}
+    </ListItem>
+  )
 }
+
+}
+
+
 
 module.exports = MatchResults;

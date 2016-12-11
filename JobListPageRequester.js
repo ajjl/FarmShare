@@ -39,6 +39,12 @@ var myStyles = StyleSheet.create({
   },
   bld: {
     fontWeight: '500'
+  },
+  normal: {
+
+  },
+  acceptedThing: {
+    backgroundColor: '#66ff66'
   }
 })
 
@@ -133,7 +139,7 @@ class JobListPageRequester extends Component {
     const jobs = []
     const matchObj = {}
     for (const match of this.props.matches) {
-      if (!matchObj[match.jobId]) {
+      if (match.creatorDecision !== "rejected" && !matchObj[match.jobId]) {
         matchObj[match.jobId] = 1
         jobs.push(match)
       }
@@ -144,17 +150,30 @@ class JobListPageRequester extends Component {
       <Content>
       <Text style={myStyles.title}> Your Job Creations: </Text>
           <List dataArray={jobs}
-              renderRow={(match) =>
-                  <ListItem  onPress={() => this._jobPressed(match.jobId)}>
+              renderRow={(match) => this._myRenderRow(match)
 
-                      <Text>{match.jobName}</Text>
-                {/*      <Text>{match._id}</Text> */}
-                  </ListItem>
+
               }>
           </List>
       </Content>
   </Container>
   </View>
+    )
+  }
+  _myRenderRow(match){
+    console.log("match is: ", match);
+    let theStyle = 'normal'
+    if(match.creatorDecision === "accepted" && match.providerDecision === "applied"){
+      console.log("GREEEEEENENENENENEN!!!");
+      theStyle = 'acceptedThing'
+    }
+      console.log("CRAPPPPPPP!!!");
+    return (
+      <ListItem  onPress={() => this._jobPressed(match.jobId)} style={myStyles[theStyle]}>
+
+          <Text>{match.jobName}</Text>
+    {/*      <Text>{match._id}</Text> */}
+      </ListItem>
     )
   }
 }

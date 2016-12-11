@@ -14,7 +14,7 @@ import {
 import { Container, Content, List, ListItem, Text, Icon, Badge, Button } from 'native-base';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import {Actions} from 'react-native-router-flux';
-
+import Promise from 'bluebird';
 
 import styles from './styles'
 
@@ -50,34 +50,19 @@ class JobDetail extends Component {
     AlertIOS.alert("You should now go to the (matchandprofile page) see the details of "+ person+ " and be able to accept or reject their application, and start a chat")
   }
 
-  _dismissMatch(myMatch) {
-    this.props.match.providerDecision="dismissed"
-    console.log("in _dismissMatch");
-    AlertIOS.alert("Your rejected the match")
-    return fetch(`https://farmshare-api.herokuapp.com/matchSwipe`, {
-      method: 'POST',
-      headers:{
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        matchId: myMatch._id,
-        match: myMatch
-      })
-    })
-    .then(response => {
-      console.log("in first .then");
-      console.log("response was: ", response);
-      return response.json() }
-    )
-    .then(json => {
-      console.log("in second .then");
-    })
-  }
-
 
 
   _acceptMatch(myMatch){
+      return Promise.map(this.props.matches, match => {
+        if(match._id !== myMatch._id){
+          return this._rejectMatch(match)
+        } else {
+          return this._acceptMatchHelper(match);
+        }
+    })
+  }
+
+    _acceptMatchHelper(myMatch){
     console.log("match is: ", myMatch);
     myMatch.creatorDecision="accepted"
     console.log("in _acceptMatch");
@@ -105,7 +90,7 @@ class JobDetail extends Component {
   _rejectMatch(myMatch){
     myMatch.creatorDecision="rejected"
     console.log("in _rejectMatch");
-    AlertIOS.alert("you will reject the match")
+    //AlertIOS.alert("you will reject the match")
     return fetch(`https://farmshare-api.herokuapp.com/matchSwipe`, {
       method: 'POST',
       headers:{
@@ -154,6 +139,10 @@ class JobDetail extends Component {
   render() {
     console.log("props: " + this.props);
     console.log("job " + JSON.stringify(this.props.job));
+    const acceptedMatches = []
+    for (const match of this.props.matches) {
+      if (match.providerDecision === "applied" && match.creatorDecision !== "rejected") acceptedMatches.push(match)
+    }
     return (
     <View style={myStyles.navContainer}>
     <Text> Job Details: </Text>
@@ -189,7 +178,7 @@ class JobDetail extends Component {
               <Text style={myStyles.title}>Your Possible providers: (only see this if provider has accpted): </Text>
               </View>
               </ListItem>
-              <List dataArray={this.props.matches}
+              <List dataArray={acceptedMatches}
                   renderRow={(match) =>
                       <ListItem>
 
@@ -198,16 +187,17 @@ class JobDetail extends Component {
                           <Text >{match.provider}</Text>
                           </ListItem>
                           <Text style={myStyles.bld}>  Distance: {match.distance/1000} km </Text>
+                          <Text style={myStyles.bld}>  Your Decision: {match.creatorDecision} </Text>
                     <ListItem>
                     <Grid>
                     <Col>
                     <Button block info onPress={() => this._goToChat(match)}> Chat</Button>
                     </Col>
                     <Col>
-                    <Button block success onPress={this._goToChat.bind(this)}> Accept </Button>
+                    <Button block success onPress={() => this._acceptMatch(match)}> Accept </Button>
                     </Col>
                     <Col>
-                    <Button block danger onPress={this._goToChat.bind(this)}> Reject </Button>
+                    <Button block danger onPress={() => this._rejectMatch(match)}> Reject </Button>
                     </Col>
                     </Grid>
                     </ListItem>
