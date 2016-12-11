@@ -11,8 +11,11 @@ import {
   ListView,
   AlertIOS
 } from 'react-native';
-import { Button, Container, Content, List, ListItem, Text, Icon, Badge } from 'native-base';
-
+import { Button, Container, Content, List, ListItem, Text, Icon, Badge,
+  InputGroup,
+  Input,
+ } from 'native-base';
+import {Actions} from 'react-native-router-flux';
 
 import styles from './styles'
 
@@ -41,18 +44,112 @@ var myStyles = StyleSheet.create({
 class JobDetailProvider extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      message: ""
+    }
+  }
+  _getJobFromID(jobID){
+    console.log("in _getJobFromID");
+    return fetch(`https://farmshare-api.herokuapp.com/getJob`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: jobID
+      })
+    })
+    .then(response => {
+      console.log("in first .then");
+      console.log("response was: ", response);
+      return response.json() }
+    )
+    .then(json => {
+      console.log("in second .then");
+      return this._jobPressed(json)
+    })
   }
 
-_rejectMatch() {
-  AlertIOS.alert("Your rejected the match")
+_enterChat() {
+
+  console.log("aasdaa: ", this.props.match._id);
+  return fetch(`http://localhost:3000/enterChat`, {
+    method: 'POST',
+    headers:{
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      chatId: this.props.match._id
+    })
+  })
+  .then(response => response.json())
+  .then(res => {
+    console.log("messages: ", res.messages)
+    console.log("sender: ", this.props.match.provider)
+    Actions.Chat({
+      sender: this.props.match.provider,
+      messages: res.messages,
+      match: this.props.match
+    })
+  })
+
 }
-_acceptMatch() {
+
+_dismissMatch() {
+  this.props.match.providerDecision="dismissed"
+  console.log("in _dismissMatch");
+  AlertIOS.alert("Your rejected the match")
+  return fetch(`https://farmshare-api.herokuapp.com/matchSwipe`, {
+    method: 'POST',
+    headers:{
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      matchId: this.props.match._id,
+      match: this.props.match
+    })
+  })
+  .then(response => {
+    console.log("in first .then");
+    console.log("response was: ", response);
+    return response.json() }
+  )
+  .then(json => {
+    console.log("in second .then");
+  })
+}
+
+_applyMatch() {
+  this.props.match.providerDecision="applied"
+  console.log("in _rejectMatch");
   AlertIOS.alert("Your accepted the match")
+  return fetch(`https://farmshare-api.herokuapp.com/matchSwipe`, {
+    method: 'POST',
+    headers:{
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      matchId: this.props.match._id,
+      match: this.props.match
+    })
+  })
+  .then(response => {
+    console.log("in first .then");
+    console.log("response was: ", response);
+    return response.json() }
+  )
+  .then(json => {
+    console.log("in second .then");
+  })
 }
 
   render() {
-    console.log("props: " + this.props);
-    console.log("job " + JSON.stringify(this.props.job));
+    // console.log("props: " + JSON.stringify(this.props));
+    // console.log("job " + JSON.stringify(this.props.job));
     return (
     <View style={myStyles.navContainer}>
     <Text> Job Details: </Text>
@@ -63,6 +160,12 @@ _acceptMatch() {
                       <View sytle={myStyles.rowContainer}>
                       <Text style={myStyles.title}>Name: </Text>
                       <Text >{this.props.job.name} </Text>
+                      </View>
+                  </ListItem>
+                  <ListItem >
+                      <View sytle={myStyles.rowContainer}>
+                      <Text style={myStyles.title}>matchId: </Text>
+                      <Text >{this.props.match._id} </Text>
                       </View>
                   </ListItem>
                   <ListItem>
@@ -84,8 +187,9 @@ _acceptMatch() {
                       </View>
                   </ListItem>
               </List>
-              <Button block success onPress={this._acceptMatch.bind(this)}> Accept Match </Button>
-              <Button block danger onPress={this._rejectMatch.bind(this)}> Reject Match </Button>
+              <Button block success onPress={this._applyMatch.bind(this)}> Apply for Match </Button>
+              <Button block danger onPress={this._dismissMatch.bind(this)}> Dismiss Match </Button>
+              <Button block onPress={this._enterChat.bind(this)}> Enter Chat </Button>
           </Content>
       </Container>
     </View>

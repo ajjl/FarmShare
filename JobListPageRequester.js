@@ -128,7 +128,7 @@ class JobListPageRequester extends Component {
 
 
   render() {
-    console.log("in render JobListPageRequester.js, matches are: " + this.props.matches);
+    console.log("in render JobListPageRequester.js, matches are: " + JSON.stringify(this.props.matches));
     console.log("render JLPR.js: props: " + this.props);
 
     return (
