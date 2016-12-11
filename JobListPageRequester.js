@@ -130,19 +130,24 @@ class JobListPageRequester extends Component {
   render() {
     console.log("in render JobListPageRequester.js, matches are: " + JSON.stringify(this.props.matches));
     console.log("render JLPR.js: props: " + this.props);
-
+    const jobs = []
+    const matchObj = {}
+    for (const match of this.props.matches) {
+      if (!matchObj[match.jobId]) {
+        matchObj[match.jobId] = 1
+        jobs.push(match)
+      }
+    }
     return (
       <View style={myStyles.navContainer}>
       <Container>
       <Content>
-      <Text style={myStyles.title}> Your Job Creations(Matches): </Text>
-          <List dataArray={this.props.matches}
+      <Text style={myStyles.title}> Your Job Creations: </Text>
+          <List dataArray={jobs}
               renderRow={(match) =>
-                  <ListItem onPress={() => this._jobPressed(match.jobId)}>
+                  <ListItem  onPress={() => this._jobPressed(match.jobId)}>
 
                       <Text>{match.jobName}</Text>
-                      <Text style={myStyles.bld}>  Creator: {match.creator} </Text>
-                      <Text style={myStyles.bld}>  Distance: {match.distance/1000} km </Text>
                 {/*      <Text>{match._id}</Text> */}
                   </ListItem>
               }>
