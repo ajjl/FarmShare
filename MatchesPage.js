@@ -37,7 +37,14 @@ var myStyles = StyleSheet.create({
   },
   bld: {
     fontWeight: '500'
+  },
+  acceptedThing: {
+    backgroundColor : '#66ff66'
+  },
+  normal: {
+
   }
+
 })
 
 //Should job detail have provider???
@@ -88,14 +95,8 @@ class MatchResults extends Component {
       <Content>
       <Text style={myStyles.title}> Your Job Matches: </Text>
           <List dataArray={legitMatches}
-              renderRow={(match) =>
-                  <ListItem onPress={() => this._getJobFromID(match)}>
+              renderRow={(match) => this._myRenderRow(match)
 
-                      <Text>{match.jobName}</Text>
-                      <Text style={myStyles.bld}>  Creator: {match.creator} </Text>
-                      <Text style={myStyles.bld}>  Distance: {match.distance/1000} km </Text>
-                {/*      <Text>{match._id}</Text> */}
-                  </ListItem>
               }>
           </List>
       </Content>
@@ -103,6 +104,26 @@ class MatchResults extends Component {
   </View>
     )
   }
+_myRenderRow(match){
+  let theStyle = 'normal'
+  if(match.providerDecision==="applied" && match.creatorDecision === "accepted"){
+    console.log("geen me!!!!!!!!!!!!!!!!!!");
+    theStyle = 'acceptedThing'
+  }
+  return(
+
+    <ListItem onPress={() => this._getJobFromID(match)} style={myStyles[theStyle]}>
+
+        <Text>{match.jobName}</Text>
+        <Text style={myStyles.bld}>  Creator: {match.creator} </Text>
+        <Text style={myStyles.bld}>  Distance: {match.distance/1000} km </Text>
+  {/*      <Text>{match._id}</Text> */}
+    </ListItem>
+  )
 }
+
+}
+
+
 
 module.exports = MatchResults;
