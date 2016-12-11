@@ -9,8 +9,10 @@ import {
   View,
   TouchableHighlight,
   ListView,
+  AlertIOS
 } from 'react-native';
-import { Container, Content, List, ListItem, Text, Icon, Badge } from 'native-base';
+import { Container, Content, List, ListItem, Text, Icon, Badge, Button } from 'native-base';
+import { Col, Row, Grid } from "react-native-easy-grid";
 
 
 import styles from './styles'
@@ -40,7 +42,94 @@ var myStyles = StyleSheet.create({
 class JobDetail extends Component {
   constructor(props) {
     super(props);
+    //this._acceptMatch(myMatch)=this._acceptMatch(myMatch).bind(this)
   }
+  _personPressed(person) {
+    console.log("person is: " , person);
+    AlertIOS.alert("You should now go to the (matchandprofile page) see the details of "+ person+ " and be able to accept or reject their application, and start a chat")
+  }
+
+  _dismissMatch(myMatch) {
+    this.props.match.providerDecision="dismissed"
+    console.log("in _dismissMatch");
+    AlertIOS.alert("Your rejected the match")
+    return fetch(`https://farmshare-api.herokuapp.com/matchSwipe`, {
+      method: 'POST',
+      headers:{
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        matchId: myMatch._id,
+        match: myMatch
+      })
+    })
+    .then(response => {
+      console.log("in first .then");
+      console.log("response was: ", response);
+      return response.json() }
+    )
+    .then(json => {
+      console.log("in second .then");
+    })
+  }
+
+
+
+  _acceptMatch(myMatch){
+    console.log("match is: ", myMatch);
+    myMatch.creatorDecision="accepted"
+    console.log("in _acceptMatch");
+    AlertIOS.alert("You will accept the match")
+    return fetch(`https://farmshare-api.herokuapp.com/matchSwipe`, {
+      method: 'POST',
+      headers:{
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        matchId: myMatch._id,
+        match: myMatch
+      })
+    })
+    .then(response => {
+      console.log("in first .then");
+      console.log("response was: ", response);
+      return response.json() }
+    )
+    .then(json => {
+      console.log("in second .then");
+    })
+  }
+  _rejectMatch(myMatch){
+    myMatch.creatorDecision="rejected"
+    console.log("in _rejectMatch");
+    AlertIOS.alert("you will reject the match")
+    return fetch(`https://farmshare-api.herokuapp.com/matchSwipe`, {
+      method: 'POST',
+      headers:{
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        matchId: myMatch._id,
+        match: myMatch
+      })
+    })
+    .then(response => {
+      console.log("in first .then");
+      console.log("response was: ", response);
+      return response.json() }
+    )
+    .then(json => {
+      console.log("in second .then");
+    })
+  }
+  _goToChat(){
+    console.log("in _goToChat");
+    AlertIOS.alert("go to your chat")
+  }
+
   render() {
     console.log("props: " + this.props);
     console.log("job " + JSON.stringify(this.props.job));
@@ -74,8 +163,38 @@ class JobDetail extends Component {
                       <Text> {this.props.job.zipcode}</Text>
                       </View>
                   </ListItem>
+              <ListItem>
+              <View style={myStyles.rowContainer}>
+              <Text style={myStyles.title}>Your Possible providers: (only see this if provider has accpted): </Text>
+              </View>
+              </ListItem>
+              <List dataArray={this.props.matches}
+                  renderRow={(match) =>
+                      <ListItem>
+
+                        <List>
+                        <ListItem itemDivider>
+                          <Text >{match.provider}</Text>
+                          </ListItem>
+                          <Text style={myStyles.bld}>  Distance: {match.distance/1000} km </Text>
+                    <ListItem>
+                    <Grid>
+                    <Col>
+                    <Button block info onPress={this._goToChat.bind(this)}> Chat</Button>
+                    </Col>
+                    <Col>
+                    <Button block success onPress={this._goToChat.bind(this)}> Accept </Button>
+                    </Col>
+                    <Col>
+                    <Button block danger onPress={this._goToChat.bind(this)}> Reject </Button>
+                    </Col>
+                    </Grid>
+                    </ListItem>
+                      </List>
+                      </ListItem>
+                    }>
               </List>
-              {this.props.match?this.renderMatch():this.renderCrap()}
+              </List>
           </Content>
       </Container>
     </View>
