@@ -139,7 +139,7 @@ class JobListPageRequester extends Component {
     const jobs = []
     const matchObj = {}
     for (const match of this.props.matches) {
-      if (!matchObj[match.jobId]) {
+      if (match.creatorDecision !== "rejected" && !matchObj[match.jobId]) {
         matchObj[match.jobId] = 1
         jobs.push(match)
       }
