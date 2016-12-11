@@ -62,7 +62,7 @@ class JobDetail extends Component {
     })
   }
 
-    _acceptMatchHelper(match){
+    _acceptMatchHelper(myMatch){
     console.log("match is: ", myMatch);
     myMatch.creatorDecision="accepted"
     console.log("in _acceptMatch");
