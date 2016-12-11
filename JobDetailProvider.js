@@ -74,7 +74,7 @@ class JobDetailProvider extends Component {
 _enterChat() {
 
   console.log("aasdaa: ", this.props.match._id);
-  return fetch(`http://localhost:3000/enterChat`, {
+  return fetch(`http://farmshare-api.herokuapp.com/enterChat`, {
     method: 'POST',
     headers:{
       'Accept': 'application/json',
