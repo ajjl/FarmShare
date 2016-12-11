@@ -201,17 +201,8 @@ _getJobListings(){
           <Button style={styles.button} onPress={this._onGoToProfileButtonPressed.bind(this)}>
             <Text> Go To ProfilePage </Text>
           </Button>
-          <Button style={styles.button} onPress={this._onGoToJobListingsPressed.bind(this)}>
-            <Text> See your Job Listings </Text>
-          </Button>
           <Button style={styles.button} onPress={this._onGoToCreateAJobPressed.bind(this)}>
             <Text> Create a a New Job </Text>
-          </Button>
-          <Button style={styles.button} onPress={this._onGoToMessengerPressed.bind(this)}>
-            <Text> GoTo Messages Page </Text>
-          </Button>
-          <Button style={styles.button} onPress={this._onGoToNotificationPressed.bind(this)}>
-            <Text> GoTo Notifications Page </Text>
           </Button>
           <Button style={styles.button} onPress={this._getMatches.bind(this)}>
             <Text> GoTo Matches Page (See jobs u could b provider for)</Text>
