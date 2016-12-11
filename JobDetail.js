@@ -154,6 +154,10 @@ class JobDetail extends Component {
   render() {
     console.log("props: " + this.props);
     console.log("job " + JSON.stringify(this.props.job));
+    const acceptedMatches = []
+    for (const match of this.props.matches) {
+      if (match.providerDecision === "applied" && match.creatorDecision !== "rejected") acceptedMatches.push(match)
+    }
     return (
     <View style={myStyles.navContainer}>
     <Text> Job Details: </Text>
@@ -189,7 +193,7 @@ class JobDetail extends Component {
               <Text style={myStyles.title}>Your Possible providers: (only see this if provider has accpted): </Text>
               </View>
               </ListItem>
-              <List dataArray={this.props.matches}
+              <List dataArray={acceptedMatches}
                   renderRow={(match) =>
                       <ListItem>
 
@@ -198,16 +202,17 @@ class JobDetail extends Component {
                           <Text >{match.provider}</Text>
                           </ListItem>
                           <Text style={myStyles.bld}>  Distance: {match.distance/1000} km </Text>
+                          <Text style={myStyles.bld}>  Your Decision: {match.creatorDecision} </Text>
                     <ListItem>
                     <Grid>
                     <Col>
                     <Button block info onPress={() => this._goToChat(match)}> Chat</Button>
                     </Col>
                     <Col>
-                    <Button block success onPress={this._goToChat.bind(this)}> Accept </Button>
+                    <Button block success onPress={() => this._acceptMatch(match)}> Accept </Button>
                     </Col>
                     <Col>
-                    <Button block danger onPress={this._goToChat.bind(this)}> Reject </Button>
+                    <Button block danger onPress={() => this._rejectMatch(match)}> Reject </Button>
                     </Col>
                     </Grid>
                     </ListItem>
