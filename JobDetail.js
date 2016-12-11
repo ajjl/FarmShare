@@ -196,29 +196,8 @@ class JobDetail extends Component {
               </View>
               </ListItem>
               <List dataArray={this.props.matches}
-                  renderRow={(match) =>
-                      <ListItem>
+                  renderRow={(match)=>this.myRenderRow({match})
 
-                        <List>
-                        <ListItem itemDivider>
-                          <Text >{match.provider}</Text>
-                          </ListItem>
-                          <Text style={myStyles.bld}>  Distance: {match.distance/1000} km </Text>
-                    <ListItem>
-                    <Grid>
-                    <Col>
-                    <Button block info onPress={(match)=>{this._enterChat(match)}}> Chat</Button>
-                    </Col>
-                    <Col>
-                    <Button block success onPress={this._goToChat.bind(this)}> Accept </Button>
-                    </Col>
-                    <Col>
-                    <Button block danger onPress={this._goToChat.bind(this)}> Reject </Button>
-                    </Col>
-                    </Grid>
-                    </ListItem>
-                      </List>
-                      </ListItem>
                     }>
               </List>
               </List>
@@ -226,6 +205,32 @@ class JobDetail extends Component {
       </Container>
     </View>
   )
+  }
+  myRenderRow(match){
+    return(
+      <ListItem>
+
+        <List>
+        <ListItem itemDivider>
+          <Text >{match.provider}</Text>
+          </ListItem>
+          <Text style={myStyles.bld}>  Distance: {match.distance/1000} km </Text>
+    <ListItem>
+    <Grid>
+    <Col>
+    <Button block info onPress={(match)=>{this._enterChat(match)}}> Chat</Button>
+    </Col>
+    <Col>
+    <Button block success onPress={this._goToChat.bind(this)}> Accept </Button>
+    </Col>
+    <Col>
+    <Button block danger onPress={this._goToChat.bind(this)}> Reject </Button>
+    </Col>
+    </Grid>
+    </ListItem>
+      </List>
+      </ListItem>
+    )
   }
 
   renderCrap(){
