@@ -74,6 +74,32 @@ class JobDetail extends Component {
     })
   }
 
+  _enterChat(myMatch) {
+
+    console.log("myMatch: ", myMatch);
+    console.log("myMatch._id: ", myMatch._id);
+    return fetch(`http://localhost:3000/enterChat`, {
+      method: 'POST',
+      headers:{
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        chatId: myMatch._id
+      })
+    })
+    .then(response => response.json())
+    .then(res => {
+      console.log("messages: ", res.messages)
+      console.log("sender: ", myMatch.provider)
+      Actions.Chat({
+        sender: myMatch.provider,
+        messages: res.messages,
+        match: myMatch
+      })
+    })
+
+  }
 
 
   _acceptMatch(myMatch){
@@ -133,6 +159,7 @@ class JobDetail extends Component {
   render() {
     console.log("props: " + this.props);
     console.log("job " + JSON.stringify(this.props.job));
+    console.log("this.props.matches: ", this.props.matches);
     return (
     <View style={myStyles.navContainer}>
     <Text> Job Details: </Text>
@@ -180,7 +207,7 @@ class JobDetail extends Component {
                     <ListItem>
                     <Grid>
                     <Col>
-                    <Button block info onPress={this._goToChat.bind(this)}> Chat</Button>
+                    <Button block info onPress={(match)=>{this._enterChat(match)}}> Chat</Button>
                     </Col>
                     <Col>
                     <Button block success onPress={this._goToChat.bind(this)}> Accept </Button>
