@@ -78,12 +78,16 @@ class MatchResults extends Component {
   }
 
   render() {
+    const legitMatches = []
+    for (const match of this.props.matches) {
+      if (match.creatorDecision !== "rejected") legitMatches.push(match)
+    }
     return (
       <View style={myStyles.navContainer}>
       <Container>
       <Content>
       <Text style={myStyles.title}> Your Job Matches: </Text>
-          <List dataArray={this.props.matches}
+          <List dataArray={legitMatches}
               renderRow={(match) =>
                   <ListItem onPress={() => this._getJobFromID(match)}>
 
