@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { Container, Content, List, ListItem, Text, Icon, Badge, Button } from 'native-base';
 import { Col, Row, Grid } from "react-native-easy-grid";
+import {Actions} from 'react-native-router-flux';
 
 
 import styles from './styles'
@@ -125,9 +126,29 @@ class JobDetail extends Component {
       console.log("in second .then");
     })
   }
-  _goToChat(){
+  _goToChat(match){
+    console.log("match: ", match)
     console.log("in _goToChat");
-    AlertIOS.alert("go to your chat")
+    return fetch(`http://localhost:3000/enterChat`, {
+      method: 'POST',
+      headers:{
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        chatId: match._id
+      })
+    })
+    .then(response => response.json())
+    .then(res => {
+      console.log("messages: ", res.messages)
+      console.log("sender: ", match.creator)
+      Actions.Chat({
+        sender: match.creator,
+        messages: res.messages,
+        match: match
+      })
+    })
   }
 
   render() {
@@ -180,7 +201,7 @@ class JobDetail extends Component {
                     <ListItem>
                     <Grid>
                     <Col>
-                    <Button block info onPress={this._goToChat.bind(this)}> Chat</Button>
+                    <Button block info onPress={() => this._goToChat(match)}> Chat</Button>
                     </Col>
                     <Col>
                     <Button block success onPress={this._goToChat.bind(this)}> Accept </Button>
