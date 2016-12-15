@@ -75,7 +75,7 @@ class Chat extends Component {
     console.log("this.props.match: ", this.props.match)
     console.log("this.state.message: ", this.state.message)
 
-    return fetch(`http://localhost:3000/sendMessage`, {
+    return fetch(`https://farmshare-api.herokuapp.com/sendMessage`, {
       method: 'POST',
       headers:{
         'Accept': 'application/json',

@@ -114,7 +114,7 @@ class JobDetail extends Component {
   _goToChat(match){
     console.log("match: ", match)
     console.log("in _goToChat");
-    return fetch(`http://farmshare-api.herokuapp.com/enterChat`, {
+    return fetch(`https://farmshare-api.herokuapp.com/enterChat`, {
       method: 'POST',
       headers:{
         'Accept': 'application/json',
