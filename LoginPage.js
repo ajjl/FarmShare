@@ -24,55 +24,41 @@ class LoginPage extends Component {
       password: ''
     }
   }
-_handlePressAlex(){
-  AlertIOS.alert("You pressed Alex button")
-}
-  _makeRequest(type) {
+  _makeRequest = async(type) => {
     console.log("log in pressed")
-    const email = this.state.email.toLowerCase() // <-- this should be chanded to server side logic
-    const password = this.state.password
-    return fetch(`https://farmshare-api.herokuapp.com/${type}`, {
-    	method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-    	body: JSON.stringify({
-        email: email,
-        password: password
-    	})
-    })
-      .then((response) => {
-        return response.json()
+    try {
+      const email = this.state.email.toLowerCase() // <-- this should be chanded to server side logic
+      const password = this.state.password
+      const response = await fetch(`https://farmshare-api.herokuapp.com/${type}`, {
+      	method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+      	body: JSON.stringify({
+          email: email,
+          password: password
+      	})
       })
-      .then((responseJson) => {
+
+        const responseJson = await response.json()
+
          console.log("responseJson: ", responseJson)
         if (responseJson && Object.keys(responseJson).length) {
-          /*this.props.navigator.push({
-            title: 'HomePage',
-            component: HomePage,
-            passProps: {
-              user: responseJson,
-              name: responseJson.fullname,
-              email: responseJson.email
-            },
-
-          })*/
           Actions.HomePage({
             user: responseJson,
             name: responseJson.fullname,
             email: responseJson.email
           })
         } else {
-          AlertIOS.alert("Account Not Found")
+          AlertIOS.alert("Wrong combination")
         }
         // AlertIOS.alert(JSON.stringify(responseJson))
 
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-
+      }
+      catch (e) {
+        AlertIOS.alert("Bad Connection")
+      }
   }
 
   _loginButton() {

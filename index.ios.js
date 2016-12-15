@@ -14,10 +14,10 @@ import {Scene, Router} from 'react-native-router-flux';
 
 //import styles from './styles.js';
 import Button from 'react-native-button';
-var ReactNative = require('react-native')
+import ReactNative from 'react-native'
 
-var LoginPage = require('./LoginPage.js')
-var HomePage = require('./HomePage.js')
+import LoginPage from './LoginPage.js'
+import HomePage from './HomePage.js'
 import ProfilePage from './ProfilePage.js'
 import JobListPageRequester from './JobListPageRequester.js'
 import  CreateAJob from './CreateAJob'
